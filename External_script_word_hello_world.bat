@@ -9,8 +9,6 @@ if ErrorLevel 1 (
     del git-installer.exe
     echo Git has been installed.
     echo Restarting script after installed git...
-    @REM call %~dpnx0
-    @REM exit
 ) else (
     echo Git is already installed!
 )
@@ -23,16 +21,9 @@ if ErrorLevel 1 (
     msiexec /i node.msi /passive
     del node.msi
     echo Node.js has been installed.
-    @REM echo Restarting script after installed node.js...
-    @REM call %~dpnx0
-    @REM exit
 ) else (
     echo Node.js is already installed!
 )
-
-@REM call %~dpnx0
-@REM exit
-
 
 @REM Now Node.js, git have all prepared. Install Yeoman Office.
 
