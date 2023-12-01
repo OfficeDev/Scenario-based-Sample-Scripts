@@ -49,6 +49,6 @@ if exist %foldername% (
     goto loop
 )
 
-yo office --output %foldername% --projectType excel_sample
+yo office --output %foldername% --projectType excel_sample --no-insight
 
 pause
