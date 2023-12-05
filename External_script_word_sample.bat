@@ -42,11 +42,11 @@ if ErrorLevel 1 (
     echo Yeoman Office is not installed, installing now...
     npm install -g yo generator-office
     echo Yeoman Office has been installed.
-) else (
-    echo Yeoman Office has already been installed.
     echo Restarting script after installed Yeoman Office...
     start "" "%~0"
-    @REM exit /b
+    exit /b
+) else (
+    echo Yeoman Office has already been installed.
 )
 
 @REM Now Yeoman Office has been installed. Create a sample project.
