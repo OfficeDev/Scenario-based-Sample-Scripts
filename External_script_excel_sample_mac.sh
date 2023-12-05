@@ -14,6 +14,7 @@ if ! command -v node &> /dev/null
 then
     echo "Node.js is not installed, installing now..."
     brew install node
+    brew link --overwrite node
 else
     echo "Node.js is already installed!"
 fi
