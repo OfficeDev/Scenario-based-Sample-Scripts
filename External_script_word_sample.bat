@@ -25,6 +25,15 @@ if ErrorLevel 1 (
     echo Node.js is already installed!
 )
 
+where /q yo
+if ErrorLevel 1 (
+    echo Yeoman is not installed, installing now...
+    npm install -g yo
+    echo Yeoman has been installed.
+) else (
+    echo Yeoman is already installed!
+)
+
 @REM Now Node.js, git have all prepared. Install Yeoman Office.
 
 echo Git and Node.js prepared. Checking Yeoman Office...
