@@ -4,7 +4,13 @@
 if ! command -v git &> /dev/null
 then
     echo "Git is not installed, installing now..."
-    brew install git
+    # Manual installation of Git
+    cd ~
+    curl -O https://github.com/git/git/archive/v2.31.1.tar.gz
+    tar -zxf v2.31.1.tar.gz
+    cd git-2.31.1
+    make prefix=/usr/local all
+    sudo make prefix=/usr/local install
 else
     echo "Git is already installed!"
 fi
@@ -13,7 +19,14 @@ fi
 if ! command -v node &> /dev/null
 then
     echo "Node.js is not installed, installing now..."
-    brew install node
+    # Manual installation of Node.js
+    cd ~
+    curl -O https://nodejs.org/dist/v14.16.1/node-v14.16.1.tar.gz
+    tar -zxf node-v14.16.1.tar.gz
+    cd node-v14.16.1
+    ./configure
+    make -j4
+    sudo make install
 else
     echo "Node.js is already installed!"
 fi
