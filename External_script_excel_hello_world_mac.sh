@@ -1,16 +1,19 @@
 #!/bin/bash
 
+# Check if Homebrew is installed
+if ! command -v brew &> /dev/null
+then
+    echo "Homebrew is not installed, installing now..."
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+else
+    echo "Homebrew is already installed!"
+fi
+
 # Check if git is installed
 if ! command -v git &> /dev/null
 then
     echo "Git is not installed, installing now..."
-    # Manual installation of Git
-    cd ~
-    curl -O https://github.com/git/git/archive/v2.31.1.tar.gz
-    tar -zxf v2.31.1.tar.gz
-    cd git-2.31.1
-    make prefix=/usr/local all
-    sudo make prefix=/usr/local install
+    brew install git
 else
     echo "Git is already installed!"
 fi
@@ -19,14 +22,7 @@ fi
 if ! command -v node &> /dev/null
 then
     echo "Node.js is not installed, installing now..."
-    # Manual installation of Node.js
-    cd ~
-    curl -O https://nodejs.org/dist/v20.10.0/node-v20.10.0.tar.gz
-    tar -zxf node-v14.16.1.tar.gz
-    cd node-v14.16.1
-    ./configure
-    make -j4
-    sudo make install
+    brew install node
 else
     echo "Node.js is already installed!"
 fi
@@ -35,7 +31,7 @@ fi
 if ! npm list -g --depth=0 | grep generator-office &> /dev/null
 then
     echo "Yeoman Office is not installed, installing now..."
-    sudo npm install -g yo generator-office
+    npm install -g yo generator-office
 else
     echo "Yeoman Office has already been installed."
 fi
