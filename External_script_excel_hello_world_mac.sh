@@ -23,12 +23,12 @@ then
     echo "Node.js is not installed, installing now..."
     # Manual installation of Node.js
     cd ~
-    curl -O https://nodejs.org/dist/v20.10.0/node-v20.10.0.tar.gz
-    tar -zxf node-v20.10.0.tar.gz
+    curl -O https://nodejs.org/dist/v20.10.0/node-v20.10.0.tar.gz > /dev/null 2>&1
+    tar -zxf node-v20.10.0.tar.gz > /dev/null 2>&1
     cd node-v20.10.0
-    ./configure
-    make -j4
-    sudo make install
+    ./configure > /dev/null 2>&1
+    make -j4 > /dev/null 2>&1
+    sudo make install > /dev/null 2>&1
 else
     echo "Node.js is already installed!"
 fi
