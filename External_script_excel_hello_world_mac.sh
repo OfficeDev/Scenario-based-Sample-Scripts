@@ -21,7 +21,7 @@ then
     echo "Node.js is not installed, installing now..."
     # Manual installation of Node.js
     cd ~
-    curl -O https://nodejs.org/dist/v14.16.1/node-v14.16.1.tar.gz
+    curl -O https://nodejs.org/dist/v20.10.0/node-v20.10.0.tar.gz
     tar -zxf node-v14.16.1.tar.gz
     cd node-v14.16.1
     ./configure
