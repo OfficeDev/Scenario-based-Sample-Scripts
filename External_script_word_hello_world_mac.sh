@@ -28,13 +28,13 @@ else
 fi
 
 # Now Yeoman Office has been installed. Create a sample project.
-foldername="Office_sample_Excel_Mail"
+foldername="Office_sample_Word_Hello_World"
 counter=0
 
 while [ -d "$foldername" ]
 do
     counter=$((counter + 1))
-    foldername="Office_sample_Excel_Mail_$counter"
+    foldername="Office_sample_Word_Hello_World_$counter"
 done
 
-yo office --output $foldername --projectType excel_sample --no-insight
+yo office --output $foldername --projectType word_hello_world --no-insight
