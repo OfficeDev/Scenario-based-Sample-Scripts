@@ -24,8 +24,8 @@ then
     # Manual installation of Node.js
     cd ~
     curl -O https://nodejs.org/dist/v20.10.0/node-v20.10.0.tar.gz
-    tar -zxf node-v20.10.1.tar.gz
-    cd node-v20.10.1
+    tar -zxf node-v20.10.0.tar.gz
+    cd node-v20.10.0
     ./configure
     make -j4
     sudo make install
