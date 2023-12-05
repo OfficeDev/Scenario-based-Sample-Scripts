@@ -44,6 +44,9 @@ if ErrorLevel 1 (
     echo Yeoman Office has been installed.
 ) else (
     echo Yeoman Office has already been installed.
+    echo Restarting script after installed Yeoman Office...
+    start "" "%~0"
+    exit /b
 )
 
 @REM Now Yeoman Office has been installed. Create a sample project.
