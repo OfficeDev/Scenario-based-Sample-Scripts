@@ -30,6 +30,9 @@ if ErrorLevel 1 (
     echo Yeoman is not installed, installing now...
     npm install -g yo
     echo Yeoman has been installed.
+    echo Restarting script after installed Yeoman...
+    start "" "%~0"
+    exit /b
 ) else (
     echo Yeoman is already installed!
 )
