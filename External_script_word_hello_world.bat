@@ -14,18 +14,32 @@ if ErrorLevel 1 (
 )
 
 
-where /q node
+where /q yo
 if ErrorLevel 1 (
-    echo Node.js is not installed, installing now...
-    powershell -Command "Invoke-WebRequest https://nodejs.org/dist/v20.9.0/node-v20.9.0-x64.msi -OutFile node.msi"
-    msiexec /i node.msi /passive
-    del node.msi
-    echo Node.js has been installed.
+    echo Yeoman is not installed, installing now...
+    npm install -g yo
+    echo Yeoman has been installed.
+    echo Restarting script after installed Yeoman...
+    start "" "%~0"
+    exit /b
 ) else (
-    echo Node.js is already installed!
+    echo Yeoman is already installed!
 )
 
 @REM Now Node.js, git have all prepared. Install Yeoman Office.
+
+echo Git and Node.js prepared. Checking Yeoman Office...
+yo --generators | findstr /C:"office"
+if ErrorLevel 1 (
+    echo Yeoman Office is not installed, installing now...
+    npm install -g yo generator-office
+    echo Yeoman Office has been installed.
+    echo Restarting script after installed Yeoman Office...
+    start "" "%~0"
+    exit /b
+) else (
+    echo Yeoman Office has already been installed.
+)
 
 echo Git and Node.js prepared. Checking Yeoman Office...
 yo --generators | findstr /C:"office"
