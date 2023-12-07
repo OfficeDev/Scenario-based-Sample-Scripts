@@ -25,32 +25,47 @@ if ErrorLevel 1 (
     echo Node.js is already installed!
 )
 
-where /q yo
+@REM Git and Node.js have all prepared. check office_addin_sample_scripts.
+
+where /q office_addin_sample_scripts
 if ErrorLevel 1 (
-    echo Yeoman is not installed, installing now...
-    npm install -g yo
-    echo Yeoman has been installed.
-    echo Restarting script after installed Yeoman...
+    echo Sample scripts are not prepared, installing now...
+    npm install -g office_addin_sample_scripts
+    echo Sample scripts has been installed.
+    echo Restarting this script after installed sample scripts...
     start "" "%~0"
     exit /b
 ) else (
-    echo Yeoman is already installed!
+    echo Sample scripts is already installed!
 )
+
+
+@REM where /q yo
+@REM if ErrorLevel 1 (
+@REM     echo Yeoman is not installed, installing now...
+@REM     npm install -g yo
+@REM     echo Yeoman has been installed.
+@REM     echo Restarting script after installed Yeoman...
+@REM     start "" "%~0"
+@REM     exit /b
+@REM ) else (
+@REM     echo Yeoman is already installed!
+@REM )
 
 @REM Now Node.js, git have all prepared. Install Yeoman Office.
 
-echo Git and Node.js prepared. Checking Yeoman Office...
-yo --generators | findstr /C:"office"
-if ErrorLevel 1 (
-    echo Yeoman Office is not installed, installing now...
-    npm install -g yo generator-office
-    echo Yeoman Office has been installed.
-    echo Restarting script after installed Yeoman Office...
-    start "" "%~0"
-    exit /b
-) else (
-    echo Yeoman Office has already been installed.
-)
+@REM echo Git and Node.js prepared. Checking Yeoman Office...
+@REM yo --generators | findstr /C:"office"
+@REM if ErrorLevel 1 (
+@REM     echo Yeoman Office is not installed, installing now...
+@REM     npm install -g yo generator-office
+@REM     echo Yeoman Office has been installed.
+@REM     echo Restarting script after installed Yeoman Office...
+@REM     start "" "%~0"
+@REM     exit /b
+@REM ) else (
+@REM     echo Yeoman Office has already been installed.
+@REM )
 
 @REM Now Yeoman Office has been installed. Create a sample project.
 
@@ -64,6 +79,7 @@ if exist %foldername% (
     goto loop
 )
 
-yo office --output %foldername% --projectType excel_sample --no-insight
+@REM yo office --output %foldername% --projectType excel_sample --no-insight
+office_addin_sample_scripts launch excel_mail %foldername%
 
 pause
