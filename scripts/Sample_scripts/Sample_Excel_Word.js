@@ -9,15 +9,9 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const shell = require('shelljs');
-const ProgressBar = require('progress');
-const log = require('single-line-log').stdout;
-const Spinner = require('cli-spinner').Spinner;
-const { spawn } = require('child_process');
-const { exec } = require('child_process');
-const { execSync } = require('child_process');
-const readline = require('readline');
-const open = require('open');
+const shell = require("shelljs");
+const cli_spinner_1 = require("cli-spinner");
+const readline = require("readline");
 const fs = require("fs");
 // shell.config.silent = true;
 function exec_script_Excel_Mail() {
@@ -28,7 +22,7 @@ function exec_script_Excel_Mail() {
             let is_vscode_installed = false;
             // Step 1: Get sample code
             console.log('Step [1/3]: Getting sample code...');
-            let spinner = new Spinner('Processing.. %s');
+            let spinner = new cli_spinner_1.Spinner('Processing.. %s');
             spinner.setSpinnerString('|/-\\');
             spinner.start();
             shell.exec('git clone https://github.com/OfficeDev/Excel-Scenario-based-Add-in-Samples.git', { async: true }, (code, stdout, stderr) => {
@@ -108,7 +102,7 @@ function exec_script_Word_AIGC() {
             let is_vscode_installed = false;
             // Step 1: Get sample code
             console.log('Step [1/3]: Getting sample code...');
-            let spinner = new Spinner('Processing.. %s');
+            let spinner = new cli_spinner_1.Spinner('Processing.. %s');
             spinner.setSpinnerString('|/-\\');
             spinner.start();
             shell.exec('git clone https://github.com/OfficeDev/Word-Scenario-based-Add-in-Samples.git', { async: true }, (code, stdout, stderr) => {

@@ -1,11 +1,10 @@
-const shell = require('shelljs');
-const ProgressBar = require('progress');
-const log = require('single-line-log').stdout;
-const Spinner = require('cli-spinner').Spinner;
-const { spawn } = require('child_process');
-const { exec } = require('child_process');
-const { execSync } = require('child_process');
-const readline = require('readline');
+import shell from 'shelljs';
+import ProgressBar from 'progress';
+import log from 'single-line-log';
+import { Spinner } from 'cli-spinner';
+import { spawn, exec, execSync } from 'child_process';
+import * as readline from 'readline';
+import open from 'open';
 
 import * as os from 'os';
 

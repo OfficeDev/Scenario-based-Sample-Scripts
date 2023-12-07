@@ -1,8 +1,11 @@
-import yargs from 'yargs';
+#!/usr/bin/env node
+
+import * as yargs from 'yargs';
 const { exec_script_Excel_Mail, exec_script_Word_AIGC } = require('./Sample_scripts/Sample_Excel_Word');
 const { exec_script_Excel_Hello_World, exec_script_Word_Hello_World } = require('./Sample_scripts/Sample_Hello_world_script');
 
-yargs
+function exec_script(){
+    yargs
     .command(
         'launch <sampleType> <sampleName>',
         'Launch the sample choosed',
@@ -33,4 +36,9 @@ yargs
     )
     .help()
     .argv;
+}
+
+exec_script();
+
+
 

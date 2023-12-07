@@ -18,6 +18,7 @@
     },
     "exclude": [
         "External_scripts/**",
-        "node_modules"
+        "node_modules",
+        "scripts",
     ]
 }

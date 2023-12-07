@@ -2,13 +2,13 @@
   "name": "office_addin_sample_scripts",
   "version": "1.0.0",
   "description": "This package would provide user some scripts to automatically run sample office add-ins.",
-  "main": "index.ts",
+  "main": "./scripts/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsc -p tsconfig.json"
   },
   "bin": {
-    "office_addin_sample_scripts": "./src/index.ts"
+    "office_addin_sample_scripts": "./scripts/index.js"
   },
   "repository": {
     "type": "git",
