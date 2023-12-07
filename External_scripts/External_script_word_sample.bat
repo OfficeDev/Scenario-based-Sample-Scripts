@@ -25,45 +25,30 @@ if ErrorLevel 1 (
     echo Node.js is already installed!
 )
 
-where /q yo
+@REM Git and Node.js have all prepared. check office_addin_sample_scripts.
+
+where /q office_addin_sample_scripts
 if ErrorLevel 1 (
-    echo Yeoman is not installed, installing now...
-    npm install -g yo
-    echo Yeoman has been installed.
-    echo Restarting script after installed Yeoman...
+    echo Sample scripts are not prepared, installing now...
+    npm install -g office_addin_sample_scripts
+    echo Sample scripts has been installed.
+    echo Restarting this script after installed sample scripts...
     start "" "%~0"
     exit /b
 ) else (
-    echo Yeoman is already installed!
+    echo Sample scripts is already installed!
 )
 
-@REM Now Node.js, git have all prepared. Install Yeoman Office.
-
-echo Git and Node.js prepared. Checking Yeoman Office...
-yo --generators | findstr /C:"office"
-if ErrorLevel 1 (
-    echo Yeoman Office is not installed, installing now...
-    npm install -g yo generator-office
-    echo Yeoman Office has been installed.
-    echo Restarting script after installed Yeoman Office...
-    start "" "%~0"
-    exit /b
-) else (
-    echo Yeoman Office has already been installed.
-)
-
-@REM Now Yeoman Office has been installed. Create a sample project.
-
-set foldername=Office_sample
+set foldername=Word_AIGC_sample
 set /a counter=0
 
 :loop
 if exist %foldername% (
     set /a counter=counter + 1
-    set foldername=Office_sample_%counter%
+    set foldername=Word_AIGC_sample_%counter%
     goto loop
 )
 
-yo office --output %foldername% --projectType word_sample --no-insight
+office_addin_sample_scripts launch word_aigc %foldername%
 
 pause
