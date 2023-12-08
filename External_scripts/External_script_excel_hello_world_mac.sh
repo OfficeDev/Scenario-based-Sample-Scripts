@@ -1,5 +1,5 @@
 #!/bin/bash
-
+ 
 # Check if Homebrew is installed
 if ! command -v brew &> /dev/null
 then
@@ -8,7 +8,7 @@ then
 else
     echo "Homebrew is already installed!"
 fi
-
+ 
 # Check if git is installed
 if ! command -v git &> /dev/null
 then
@@ -17,34 +17,54 @@ then
 else
     echo "Git is already installed!"
 fi
-
+ 
 # Check if Node.js is installed
 if ! command -v node &> /dev/null
 then
     echo "Node.js is not installed, installing now..."
-    brew install node
-    brew link --overwrite node
+    brew install node@18
+    brew link --overwrite --force node@18
 else
     echo "Node.js is already installed!"
+    #check the version of Node.js
+    NODE_VERSION=$(node -v)
+    if [[ "$NODE_VERSION" != "v16"* && "$NODE_VERSION" != "v18"* ]]
+    then
+        echo "The current version of Node.js is not 16 or 18, installing Node.js 18 now..."
+        brew install node@18
+        brew link --overwrite --force node@18
+    fi
 fi
 
-# Check if Yeoman and generator-office are installed
-if ! npm list -g --depth=0 | grep generator-office &> /dev/null
+# Check the version of Node.js
+echo "The current version of Node.js is: $(node -v)"
+ 
+# check if typescript & tsc have been installed
+if ! command -v tsc &> /dev/null
 then
-    echo "Yeoman Office is not installed, installing now..."
-    npm install -g yo generator-office
+    echo "TypeScript is not installed, installing now..."
+    npm install -g typescript
 else
-    echo "Yeoman Office has already been installed."
+    echo "TypeScript is already installed!"
 fi
-
-# Now Yeoman Office has been installed. Create a sample project.
+ 
+# Check if office_addin_sample_scripts are installed
+if ! npm list -g --depth=0 | grep office_addin_sample_scripts &> /dev/null
+then
+    echo "office_addin_sample_scripts is not installed, installing now..."
+    npm install -g office_addin_sample_scripts
+else
+    echo "office_addin_sample_scripts has already been installed."
+fi
+ 
+# Now Office add-in sample scripts have been installed. Create a sample project.
 foldername="Office_sample_Excel_Hello_World"
 counter=0
-
+ 
 while [ -d "$foldername" ]
 do
     counter=$((counter + 1))
     foldername="Office_sample_Excel_Hello_World_$counter"
 done
-
-yo office --output $foldername --projectType excel_hello_world --no-insight
+ 
+office_addin_sample_scripts launch excel_hello_world $foldername

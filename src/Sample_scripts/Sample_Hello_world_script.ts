@@ -69,6 +69,7 @@ async function exec_script_Excel_Hello_World(){
                     spinner.start();
 
                     // shell.cd('./Mail-Merge-Sample-Add-in');
+                    console.log(`Current path is: ${process.cwd()}`);
                     shell.exec('npm install', {async:true}, (code, stdout, stderr) => {
                         shell.exec('npm run start', {async:true}, (code, stdout, stderr) => {
 
