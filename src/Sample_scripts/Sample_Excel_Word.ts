@@ -9,7 +9,7 @@ import * as usageData from 'office-addin-usage-data';
 
 import * as os from 'os';
 import * as fs from 'fs';
-// shell.config.silent = true;
+shell.config.silent = true;
 
 const usageDataOptions: usageData.IUsageDataOptions = {
     groupName: usageData.groupName,
@@ -25,6 +25,7 @@ let usageDataObject: usageData.OfficeAddinUsageData = new usageData.OfficeAddinU
 async function exec_script_Excel_Mail(){
   // shell.exec('code .');
   console.log('Welcome to experience this Office add-in sample: Excel Mail merge Add-in project!');
+  console.log('--------------------------------------------------------------------------------------------------------');
 
   return new Promise<boolean>((resolve, reject) => {
     
@@ -47,6 +48,7 @@ async function exec_script_Excel_Mail(){
             replaceUrl('https://pnptelemetry.azurewebsites.net/pnp-officeaddins/samples/excel-add-in-mail-merge-localhost', 'https://pnptelemetry.azurewebsites.net/pnp-officeaddins/samples/excel-add-in-mail-merge-script', './src/taskpane/taskpane.html');
 
             console.log('Step [1/3] completed!');
+            console.log('--------------------------------------------------------------------------------------------------------');
     
             // Ask user if sample Add-in automatic launch is needed
             let rl = readline.createInterface({
@@ -79,6 +81,7 @@ async function exec_script_Excel_Mail(){
                 }
 
                 console.log('Step [2/3] completed!');
+                console.log('--------------------------------------------------------------------------------------------------------');
                 reportUsageData('Excel_Mail', auto_launch_answer);
 
                 if (auto_launch_answer) {
@@ -86,6 +89,7 @@ async function exec_script_Excel_Mail(){
                     // Step 3: Provide user the command to side-load add-in directly 
                     console.log('Step [3/3]: Automatically side-load add-in directly...');
                     console.log('It may take longer time to complete the process. Please wait patiently...');
+                    spinner.text = 'Processing...(this may take a few minutes to install all dependencies)';
                     spinner.start();
 
                     shell.cd('./Mail-Merge-Sample-Add-in');
@@ -97,7 +101,10 @@ async function exec_script_Excel_Mail(){
                         readline.cursorTo(process.stdout, 0);
 
                         console.log('Step [3/3] completed!');
+                        console.log('--------------------------------------------------------------------------------------------------------');
+                        FreePortAlert();    
                         console.log('Finished!');
+                        console.log('--------------------------------------------------------------------------------------------------------');
                         // console.log('Hint: To try out the full functionality, please follow the instruction in the opening web page: Register a web application with the Azure Active Directory admin center.');
                         // open('https://github.com/OfficeDev/Excel-Scenario-based-Add-in-Samples/tree/main/Mail-Merge-Sample-Add-in');
                         resolve(is_vscode_installed);
@@ -108,11 +115,13 @@ async function exec_script_Excel_Mail(){
                     // Don't continue with the operations
                     console.log('Step [3/3] skipped. You decided not to auto-launch the sample.')
                     console.log('No problem. You can always launch the sample add-in by running the following commands:');
-                    console.log('--------------------------------------------');
+                    console.log('--------------------------------------------------------------------------------------------------------');
                     console.log('npm install');
                     console.log('npm run start');
-                    console.log('--------------------------------------------');    
+                    console.log('--------------------------------------------------------------------------------------------------------');
+                    FreePortAlert();    
                     console.log('Finished!');   
+                    console.log('--------------------------------------------------------------------------------------------------------');
                     // console.log('Hint: To try out the full functionality, please follow the instruction in the opening web page: Register a web application with the Azure Active Directory admin center.');
                     // open('https://github.com/OfficeDev/Excel-Scenario-based-Add-in-Samples/tree/main/Mail-Merge-Sample-Add-in');
                     resolve(is_vscode_installed);
@@ -125,6 +134,7 @@ async function exec_script_Excel_Mail(){
 async function exec_script_Word_AIGC(){
     // shell.exec('code .');
     console.log('Welcome to experience this Office add-in sample: Word AIGC Add-in project!');
+    console.log('--------------------------------------------------------------------------------------------------------');
   
     return new Promise<boolean>((resolve, reject) => {
       
@@ -147,6 +157,7 @@ async function exec_script_Word_AIGC(){
 
             // Step 2: Check if VSCode is installed
             console.log('Step [1/3] completed!');
+            console.log('--------------------------------------------------------------------------------------------------------');
               // Ask user if sample Add-in automatic launch is needed
             let rl = readline.createInterface({
                 input: process.stdin,
@@ -180,12 +191,14 @@ async function exec_script_Word_AIGC(){
                 }
 
                 console.log('Step [2/3] completed!');
+                console.log('--------------------------------------------------------------------------------------------------------');
                 reportUsageData('Word_AIGC', auto_launch_answer);
 
                 if (auto_launch_answer) {
                     // Continue with the operations
                     // Step 3: Provide user the command to side-load add-in directly 
                     console.log('Step [3/3]: Automatically side-load add-in directly...');
+                    spinner.text = 'Processing...(this may take a few minutes to install all dependencies)';
                     spinner.start();
 
                     shell.cd('./Word-Add-in-AIGC');
@@ -201,7 +214,10 @@ async function exec_script_Word_AIGC(){
                         readline.cursorTo(process.stdout, 0);
 
                         console.log('Step [3/3] completed!');
+                        console.log('--------------------------------------------------------------------------------------------------------');
+                        FreePortAlert();
                         console.log('Finished!');
+                        console.log('--------------------------------------------------------------------------------------------------------');
 
                         resolve(is_vscode_installed);
                         });
@@ -211,11 +227,13 @@ async function exec_script_Word_AIGC(){
                     // Don't continue with the operations
                     console.log('Step [3/3] skipped. You decided not to auto-launch the sample.')
                     console.log('No problem. You can always launch the sample add-in by running the following commands:');
-                    console.log('--------------------------------------------');
+                    console.log('--------------------------------------------------------------------------------------------------------');
                     console.log('npm install');
                     console.log('npm run start');
-                    console.log('--------------------------------------------');    
-                    console.log('Finished!');             
+                    console.log('--------------------------------------------------------------------------------------------------------');
+                    FreePortAlert();     
+                    console.log('Finished!');     
+                    console.log('--------------------------------------------------------------------------------------------------------');        
                     resolve(is_vscode_installed);
                 }
             });
@@ -226,12 +244,11 @@ async function exec_script_Word_AIGC(){
 async function exec_script_Excel_Hello_World(){
     // shell.exec('code .');
     console.log('Welcome to experience this Office add-in sample: Excel Hello World Add-in!');
+    console.log('--------------------------------------------------------------------------------------------------------');
   
     return new Promise<boolean>((resolve, reject) => {
       
           let is_vscode_installed = false;
-  
-          console.log('Welcome to experience this Office add-in sample!');
   
           // Step 1: Get sample code
           console.log('Step [1/3]: Getting sample code...');
@@ -248,6 +265,7 @@ async function exec_script_Excel_Hello_World(){
               readline.cursorTo(process.stdout, 0);
   
               console.log('Step [1/3] completed!');
+              console.log('--------------------------------------------------------------------------------------------------------');
       
               // Ask user if sample Add-in automatic launch is needed
               let rl = readline.createInterface({
@@ -285,6 +303,7 @@ async function exec_script_Excel_Hello_World(){
                   }
   
                   console.log('Step [2/3] completed!');
+                  console.log('--------------------------------------------------------------------------------------------------------');
 
                   reportUsageData('Excel_Hello_World', auto_launch_answer);
                   if (auto_launch_answer) {
@@ -292,6 +311,7 @@ async function exec_script_Excel_Hello_World(){
                       // Step 3: Provide user the command to side-load add-in directly 
                       console.log('Step [3/3]: Automatically side-load add-in directly...');
                       console.log('It may take longer time to complete the process. Please wait patiently...');
+                      spinner.text = 'Processing...(this may take a few minutes to install all dependencies)';
                       spinner.start();
   
                       // shell.cd('./Mail-Merge-Sample-Add-in');
@@ -304,7 +324,10 @@ async function exec_script_Excel_Hello_World(){
                           readline.cursorTo(process.stdout, 0);
   
                           console.log('Step [3/3] completed!');
+                          console.log('--------------------------------------------------------------------------------------------------------');
+                          FreePortAlert();
                           console.log('Finished!');
+                          console.log('--------------------------------------------------------------------------------------------------------');
                           // console.log('Hint: To try out the full functionality, please follow the instruction in the opening web page: Register a web application with the Azure Active Directory admin center.');
                           resolve(is_vscode_installed);
                           });
@@ -314,11 +337,12 @@ async function exec_script_Excel_Hello_World(){
                       // Don't continue with the operations
                       console.log('Step [3/3] skipped. You decided not to auto-launch the sample.')
                       console.log('No problem. You can always launch the sample add-in by running the following commands:');
-                      console.log('--------------------------------------------');
+                      console.log('--------------------------------------------------------------------------------------------------------');
                       console.log('npm install');
                       console.log('npm run start');
-                      console.log('--------------------------------------------');
+                      console.log('--------------------------------------------------------------------------------------------------------');
                       console.log('Finished!');
+                      console.log('--------------------------------------------------------------------------------------------------------');
                       // console.log('Hint: To try out the full functionality, please follow the instruction in the opening web page: Register a web application with the Azure Active Directory admin center.');
                       resolve(is_vscode_installed);
                   }
@@ -331,12 +355,11 @@ async function exec_script_Excel_Hello_World(){
 async function exec_script_Word_Hello_World(){
       // shell.exec('code .');
       console.log('Welcome to experience this Office add-in sample: Word Hello World Add-in project!');
+      console.log('--------------------------------------------------------------------------------------------------------');
     
       return new Promise<boolean>((resolve, reject) => {
         
             let is_vscode_installed = false;
-    
-            console.log('Welcome to experience this Office add-in sample!');
     
             // Step 1: Get sample code
             console.log('Step [1/3]: Getting sample code...');
@@ -354,6 +377,7 @@ async function exec_script_Word_Hello_World(){
     
                 // Step 2: Check if VSCode is installed
                 console.log('Step [1/3] completed!');
+                console.log('--------------------------------------------------------------------------------------------------------');
                 // Ask user if sample Add-in automatic launch is needed
               let rl = readline.createInterface({
                   input: process.stdin,
@@ -385,12 +409,14 @@ async function exec_script_Word_Hello_World(){
                   }
   
                   console.log('Step [2/3] completed!');
+                  console.log('--------------------------------------------------------------------------------------------------------');
 
                   reportUsageData('Word_Hello_World', auto_launch_answer);
                   if (auto_launch_answer) {
                       // Continue with the operations
                       // Step 3: Provide user the command to side-load add-in directly 
                       console.log('Step [3/3]: Automatically side-load add-in directly...');
+                      spinner.text = 'Processing...(this may take a few minutes to install all dependencies)';
                       spinner.start();
   
                       // shell.cd('./Word-Add-in-AIGC');
@@ -402,7 +428,10 @@ async function exec_script_Word_Hello_World(){
                           readline.cursorTo(process.stdout, 0);
   
                           console.log('Step [3/3] completed!');
+                          console.log('--------------------------------------------------------------------------------------------------------');
+                          FreePortAlert();
                           console.log('Finished!');
+                          console.log('--------------------------------------------------------------------------------------------------------');
                           resolve(is_vscode_installed);
                           });
                       });
@@ -411,11 +440,13 @@ async function exec_script_Word_Hello_World(){
                       // Don't continue with the operations
                       console.log('Step [3/3] skipped. You decided not to auto-launch the sample.')
                       console.log('No problem. You can always launch the sample add-in by running the following commands:');
-                      console.log('--------------------------------------------');
+                      console.log('--------------------------------------------------------------------------------------------------------');
                       console.log('npm install');
                       console.log('npm run start');
-                      console.log('--------------------------------------------');    
-                      console.log('Finished!');         
+                      console.log('--------------------------------------------------------------------------------------------------------'); 
+                      FreePortAlert  
+                      console.log('Finished!');    
+                      console.log('--------------------------------------------------------------------------------------------------------');     
                       resolve(is_vscode_installed);
                   }
               });
@@ -450,6 +481,27 @@ function reportUsageData(scriptName: string, isAutomaticallyLaunch: boolean) {
 
     usageDataObject.reportEvent("sample_scripts", projectInfo);
     
+}
+
+function FreePortAlert() {
+    if(os.platform() == 'darwin'){
+        console.log('Hint: For mac users, if the add-in cannot be loaded correctly because of the add-in you loaded before, please try to run the commands below:');
+        console.log('lsof -i:3000');
+        console.log('kill -9 <PID>');
+        console.log('--------------------------------------------------------------------------------------------------------');
+        console.log('Then try to run the add-in again:');
+        console.log('npm run start');
+        console.log('--------------------------------------------------------------------------------------------------------');
+    }
+    else if(os.platform() == 'win32'){
+        console.log('Hint: For windows users, if the add-in cannot be loaded correctly because of the add-in you loaded before, please try to run the commands below:');
+        console.log('netstat -ano | findstr :3000');
+        console.log('taskkill /PID <PID> /F');
+        console.log('--------------------------------------------------------------------------------------------------------');
+        console.log('Then try to run the add-in again:');
+        console.log('npm run start');
+        console.log('--------------------------------------------------------------------------------------------------------');
+    }
 }
 
 module.exports = { exec_script_Excel_Mail, exec_script_Word_AIGC, exec_script_Excel_Hello_World, exec_script_Word_Hello_World };
