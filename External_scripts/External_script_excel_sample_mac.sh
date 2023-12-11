@@ -71,5 +71,3 @@ do
 done
  
 office_addin_sample_scripts launch excel_mail $foldername
-has context menu
-

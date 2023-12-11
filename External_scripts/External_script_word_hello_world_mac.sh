@@ -71,5 +71,3 @@ do
 done
  
 office_addin_sample_scripts launch word_hello_world $foldername
-has context menu
-

@@ -70,7 +70,12 @@ async function exec_script_Excel_Mail(){
                     shell.exec('code -n . ./README.md');
                 } else {
                     console.log('Visual Studio Code is not installed on your machine.');
-                    shell.exec('start Mail-Merge-Sample-Add-in');
+                    if (os.platform() == 'darwin') {
+                        shell.exec('open Mail-Merge-Sample-Add-in');
+                    }
+                    else if (os.platform() == 'win32') {
+                        shell.exec('start Mail-Merge-Sample-Add-in');
+                    }
                 }
 
                 console.log('Step [2/3] completed!');
@@ -164,7 +169,12 @@ async function exec_script_Word_AIGC(){
                     shell.exec('code -n . ./README.md');
                 } else {
                     console.log('Visual Studio Code is not installed on your machine.');
-                    shell.exec('start Word-Add-in-AIGC');
+                    if (os.platform() == 'darwin') {
+                        shell.exec('open Word-Add-in-AIGC');
+                    }
+                    else if (os.platform() == 'win32') {
+                        shell.exec('start Word-Add-in-AIGC');
+                    }
                 }
 
                 console.log('Step [2/3] completed!');
@@ -259,7 +269,12 @@ async function exec_script_Excel_Hello_World(){
                       shell.exec('code -n . ./README.md');
                   } else {
                       console.log('Visual Studio Code is not installed on your machine.');
-                      shell.exec('start .');
+                      if (os.platform() == 'darwin') {
+                        shell.exec('open .');
+                    }
+                    else if (os.platform() == 'win32') {
+                        shell.exec('start .');
+                    }
                   }
   
                   console.log('Step [2/3] completed!');
@@ -354,7 +369,12 @@ async function exec_script_Word_Hello_World(){
                       shell.exec('code -n . ./README.md');
                   } else {
                       console.log('Visual Studio Code is not installed on your machine.');
-                      shell.exec('start .');
+                      if (os.platform() == 'darwin') {
+                        shell.exec('open .');
+                    }
+                    else if (os.platform() == 'win32') {
+                        shell.exec('start .');
+                    }
                   }
   
                   console.log('Step [2/3] completed!');
