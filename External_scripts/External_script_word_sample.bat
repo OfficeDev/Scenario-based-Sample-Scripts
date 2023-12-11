@@ -39,6 +39,19 @@ if ErrorLevel 1 (
     echo Sample scripts is already installed!
 )
 
+@REM Check if Word has been installed on the local machine.
+:: Define the registry keys for Word to check
+set "regKeys=HKLM\Software\Microsoft\Windows\CurrentVersion\App Paths\winword.exe"
+
+:: Check each registry key
+reg query "%regKeys%" >nul 2>&1
+if errorlevel 1 (
+    echo Word is not installed. Please install Word before running this script...
+    exit /b
+) else (
+    echo Word is installed.
+)
+
 set foldername=Word_AIGC_sample
 set /a counter=0
 

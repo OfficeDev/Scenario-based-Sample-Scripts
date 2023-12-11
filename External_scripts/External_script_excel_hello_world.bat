@@ -39,6 +39,19 @@ if ErrorLevel 1 (
     echo Sample scripts is already installed!
 )
 
+@REM Check if Excel has been installed on the local machine.
+:: Define the registry keys for the Excel to check
+set "regKeys=HKLM\Software\Microsoft\Windows\CurrentVersion\App Paths\excel.exe"
+
+:: Check each registry key
+reg query "%regKeys%" >nul 2>&1
+if errorlevel 1 (
+    echo Excel is not installed. Please install Excel before running this script...
+    exit /b
+) else (
+    echo Excel is installed.
+)
+
 set foldername=Excel_hello_world_sample
 set /a counter=0
 
