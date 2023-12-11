@@ -71,3 +71,6 @@ do
 done
  
 office_addin_sample_scripts launch excel_hello_world $foldername
+
+read option
+echo "$option"
