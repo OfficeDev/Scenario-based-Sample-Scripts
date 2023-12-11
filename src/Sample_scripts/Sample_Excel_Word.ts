@@ -206,7 +206,6 @@ async function exec_script_Word_AIGC(){
 
                     shell.exec('npm install --loglevel verbose', {async:true}, (code, stdout, stderr) => {
 
-                        console.log(stdout);
                         shell.exec('npm run start', {async:true}, (code, stdout, stderr) => {
 
                         spinner.stop(true);
