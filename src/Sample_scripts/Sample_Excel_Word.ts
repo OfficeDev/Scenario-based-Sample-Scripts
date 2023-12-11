@@ -154,6 +154,8 @@ async function exec_script_Word_AIGC(){
             });
 
             let auto_launch_answer = false;
+
+
             rl.question('Proceed to launch Office with the sample add-in? (Y/N)\n', (answer) => {
                 if (answer.trim().toLowerCase() == 'y') {
                     auto_launch_answer = true;
@@ -254,6 +256,11 @@ async function exec_script_Excel_Hello_World(){
               });
   
               let auto_launch_answer = false;
+
+              rl.on('error', (err) => {
+                console.error(`An error occurred: ${err.message}`);
+                });
+
               rl.question('Proceed to launch Office with the sample add-in? (Y/N)\n', (answer) => {
                   if (answer.trim().toLowerCase() == 'y') {
                       auto_launch_answer = true;
