@@ -275,13 +275,13 @@ async function exec_script_Excel_Hello_World(){
                       is_vscode_installed = true;
                       shell.exec('code -n . ./README.md');
                   } else {
-                    //   console.log('Visual Studio Code is not installed on your machine.');
-                    //   if (os.platform() == 'darwin') {
-                    //     shell.exec('open .');
-                    // }
-                    // else if (os.platform() == 'win32') {
-                    //     shell.exec('start .');
-                    // }
+                      console.log('Visual Studio Code is not installed on your machine.');
+                      if (os.platform() == 'darwin') {
+                        shell.exec('open .');
+                    }
+                    else if (os.platform() == 'win32') {
+                        shell.exec('start .');
+                    }
                   }
   
                   console.log('Step [2/3] completed!');
