@@ -69,5 +69,14 @@ do
     counter=$((counter + 1))
     foldername="Office_sample_Excel_Mail_$counter"
 done
+
+#Automatically clear port 3000:
+pid=$(lsof -t -i:3000)
+if [ -n "$pid" ]; then
+    echo "Port 3000 is in use by PID $pid. Killing..."
+    kill -9 $pid
+else
+    echo "Port 3000 is not in use."
+fi
  
 office_addin_sample_scripts launch excel_mail $foldername
