@@ -28,14 +28,14 @@ else
     echo "Node.js is already installed!"
     #check the version of Node.js
     NODE_VERSION=$(node -v)
-    if [[ "$NODE_VERSION" != "v16"* && "$NODE_VERSION" != "v18"* ]]
+    if [[ "$NODE_VERSION" != "v16"*  && "$NODE_VERSION" != "v18"* ]]
     then
         echo "The current version of Node.js is not 16 or 18, installing Node.js 18 now..."
         brew install node@18
         brew link --overwrite --force node@18
     fi
 fi
-
+ 
 # Check the version of Node.js
 echo "The current version of Node.js is: $(node -v)"
  
@@ -47,6 +47,9 @@ then
 else
     echo "TypeScript is already installed!"
 fi
+ 
+# Check the version of npm
+echo "The current version of npm is: $(npm -v)"
  
 # Check if office_addin_sample_scripts are installed
 if ! npm list -g --depth=0 | grep office_addin_sample_scripts &> /dev/null
@@ -68,3 +71,5 @@ do
 done
  
 office_addin_sample_scripts launch excel_hello_world $foldername
+has context menu
+

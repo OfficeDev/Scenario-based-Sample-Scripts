@@ -27,6 +27,7 @@
     "child_process": "^1.0.2",
     "cli-spinner": "^0.2.10",
     "fs": "^0.0.1-security",
+    "office-addin-usage-data": "^1.6.8",
     "open": "^9.1.0",
     "os": "^0.1.2",
     "progress": "^2.0.3",

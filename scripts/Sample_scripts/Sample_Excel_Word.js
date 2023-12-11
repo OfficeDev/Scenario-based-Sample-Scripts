@@ -12,8 +12,19 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const shell = require("shelljs");
 const cli_spinner_1 = require("cli-spinner");
 const readline = require("readline");
+const usageData = require("office-addin-usage-data");
 const fs = require("fs");
 // shell.config.silent = true;
+const usageDataOptions = {
+    groupName: usageData.groupName,
+    projectName: "Sample_scripts",
+    raisePrompt: false,
+    instrumentationKey: usageData.instrumentationKeyForOfficeAddinCLITools,
+    usageDataLevel: usageData.UsageDataLevel.off,
+    method: usageData.UsageDataReportingMethod.applicationInsights,
+    isForTesting: false
+};
+let usageDataObject = new usageData.OfficeAddinUsageData(usageDataOptions);
 function exec_script_Excel_Mail() {
     return __awaiter(this, void 0, void 0, function* () {
         // shell.exec('code .');
@@ -56,6 +67,7 @@ function exec_script_Excel_Mail() {
                         shell.exec('start Mail-Merge-Sample-Add-in');
                     }
                     console.log('Step [2/3] completed!');
+                    reportUsageData('exec_script_Excel_Mail', auto_launch_answer);
                     if (auto_launch_answer) {
                         // Continue with the operations
                         // Step 3: Provide user the command to side-load add-in directly 
@@ -137,6 +149,7 @@ function exec_script_Word_AIGC() {
                         shell.exec('start Word-Add-in-AIGC');
                     }
                     console.log('Step [2/3] completed!');
+                    reportUsageData('exec_script_Word_AIGC', auto_launch_answer);
                     if (auto_launch_answer) {
                         // Continue with the operations
                         // Step 3: Provide user the command to side-load add-in directly 
@@ -186,6 +199,14 @@ function replaceUrl(url, newUrl, filePath) {
             }
         });
     });
+}
+function reportUsageData(scriptName, isAutomaticallyLaunch) {
+    const projectInfo = {
+        ScriptName: [scriptName],
+        ScriptType: ["TypeScript"],
+        isAutomaticallyLaunch: [isAutomaticallyLaunch]
+    };
+    usageDataObject.reportEvent("sample_scripts", projectInfo);
 }
 module.exports = { exec_script_Excel_Mail, exec_script_Word_AIGC };
 //# sourceMappingURL=Sample_Excel_Word.js.map
