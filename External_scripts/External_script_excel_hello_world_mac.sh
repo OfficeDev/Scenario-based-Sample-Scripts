@@ -49,7 +49,16 @@ else
 fi
  
 # Check the version of npm
-echo "The current version of npm is: $(npm -v)"
+NPM_VERSION=$(npm -v)
+echo "The current version of npm is: $NPM_VERSION"
+
+# Check if npm version is >=7 and <10
+if (( $(echo "$NPM_VERSION >= 7" | bc -l) )) && (( $(echo "$NPM_VERSION < 10" | bc -l) )); then
+    echo "npm version is in the correct range."
+else
+    echo "npm version is not in the correct range, reinstalling npm to version 9..."
+    npm install -g npm@9
+fi
  
 # Check if office_addin_sample_scripts are installed
 if ! npm list -g --depth=0 | grep office_addin_sample_scripts &> /dev/null
@@ -69,5 +78,14 @@ do
     counter=$((counter + 1))
     foldername="Office_sample_Excel_Hello_World_$counter"
 done
+
+#Automatically clear port 3000:
+pid=$(lsof -t -i:3000)
+if [ -n "$pid" ]; then
+    echo "Port 3000 is in use by PID $pid. Killing..."
+    kill -9 $pid
+else
+    echo "Port 3000 is not in use."
+fi
  
 office_addin_sample_scripts launch excel_hello_world $foldername
