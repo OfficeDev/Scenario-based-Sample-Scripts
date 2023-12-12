@@ -38,7 +38,6 @@ else
     fi
 fi
 
-sudo chown -R $(whoami) "Users/$(whoami).npm"
 
 # Check the version of Node.js
 echo "The current version of Node.js is: $(node -v)"
@@ -91,5 +90,7 @@ if [ -n "$pid" ]; then
 else
     echo "Port 3000 is not in use."
 fi
- 
+
+sudo chown -R $(whoami) "Users/$(whoami).npm"
+
 office_addin_sample_scripts launch excel_mail $foldername
