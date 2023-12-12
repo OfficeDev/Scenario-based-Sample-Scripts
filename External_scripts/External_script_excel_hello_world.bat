@@ -46,7 +46,9 @@ set "regKeys=HKLM\Software\Microsoft\Windows\CurrentVersion\App Paths\excel.exe"
 :: Check each registry key
 reg query "%regKeys%" >nul 2>&1
 if errorlevel 1 (
-    echo Excel is not installed. Please install Excel before running this script...
+    echo Excel is not installed. Please install Excel before running this script.
+    echo Press any key to exit...
+set /p ="
     exit /b
 ) else (
     echo Excel is installed.
