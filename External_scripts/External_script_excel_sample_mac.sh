@@ -1,14 +1,5 @@
 #!/bin/bash
  
-# Check if Homebrew is installed
-if ! command -v brew &> /dev/null
-then
-    echo "Homebrew is not installed, installing now..."
-    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-else
-    echo "Homebrew is already installed!"
-fi
- 
 # Check if git is installed
 if ! command -v git &> /dev/null
 then
@@ -18,10 +9,20 @@ else
     echo "Git is already installed!"
 fi
  
-# Check if Node.js is installed
+# Check if Node.js is installed. If Node is not installed, check homebrew/install homebrew and Node.js 18.
 if ! command -v node &> /dev/null
 then
-    echo "Node.js is not installed, installing now..."
+    echo "Node.js is not installed, installing Node.js using homebrew now..."
+
+    # Check if Homebrew is installed
+    if ! command -v brew &> /dev/null
+    then
+        echo "Homebrew is not installed, installing now..."
+        /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+    else
+        echo "Homebrew is already installed!"
+    fi
+
     brew install node@18
     brew link --overwrite --force node@18
 else
