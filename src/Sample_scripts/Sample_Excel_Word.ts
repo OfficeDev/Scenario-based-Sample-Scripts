@@ -82,7 +82,7 @@ async function exec_script_Excel_Mail(){
 
                 console.log('Step [2/3] completed!');
                 console.log('--------------------------------------------------------------------------------------------------------');
-                reportUsageData('Excel_Mail', auto_launch_answer);
+                reportUsageData('Excel_Mail', auto_launch_answer, is_vscode_installed);
 
                 if (auto_launch_answer) {
                     // Continue with the operations
@@ -192,7 +192,7 @@ async function exec_script_Word_AIGC(){
 
                 console.log('Step [2/3] completed!');
                 console.log('--------------------------------------------------------------------------------------------------------');
-                reportUsageData('Word_AIGC', auto_launch_answer);
+                reportUsageData('Word_AIGC', auto_launch_answer, is_vscode_installed);
 
                 if (auto_launch_answer) {
                     // Continue with the operations
@@ -305,7 +305,7 @@ async function exec_script_Excel_Hello_World(){
                   console.log('Step [2/3] completed!');
                   console.log('--------------------------------------------------------------------------------------------------------');
 
-                  reportUsageData('Excel_Hello_World', auto_launch_answer);
+                  reportUsageData('Excel_Hello_World', auto_launch_answer, is_vscode_installed);
                   if (auto_launch_answer) {
                       // Continue with the operations
                       // Step 3: Provide user the command to side-load add-in directly 
@@ -411,7 +411,7 @@ async function exec_script_Word_Hello_World(){
                   console.log('Step [2/3] completed!');
                   console.log('--------------------------------------------------------------------------------------------------------');
 
-                  reportUsageData('Word_Hello_World', auto_launch_answer);
+                  reportUsageData('Word_Hello_World', auto_launch_answer, is_vscode_installed);
                   if (auto_launch_answer) {
                       // Continue with the operations
                       // Step 3: Provide user the command to side-load add-in directly 
@@ -473,11 +473,12 @@ function replaceUrl(url: string, newUrl: string, filePath: string) {
     });
 }
 
-function reportUsageData(scriptName: string, isAutomaticallyLaunch: boolean) {
+function reportUsageData(scriptName: string, isAutomaticallyLaunch: boolean, isVscodeInstalled: boolean) {
     const projectInfo = {
         ScriptName: [scriptName],
         ScriptType: ["TypeScript"],
-        isAutomaticallyLaunch: [isAutomaticallyLaunch]
+        isAutomaticallyLaunch: [isAutomaticallyLaunch],
+        isVscodeInstalled: [isVscodeInstalled]
       };
 
     usageDataObject.reportEvent("sample_scripts", projectInfo);
