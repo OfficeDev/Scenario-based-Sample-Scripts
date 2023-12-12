@@ -37,7 +37,9 @@ else
         brew link --overwrite --force node@18
     fi
 fi
- 
+
+sudo chown -R $(whoami) "Users/$(whoami).npm"
+
 # Check the version of Node.js
 echo "The current version of Node.js is: $(node -v)"
  
