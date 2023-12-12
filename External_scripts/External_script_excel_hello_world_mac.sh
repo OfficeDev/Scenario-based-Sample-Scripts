@@ -1,14 +1,5 @@
 #!/bin/bash
- 
-# Check if Homebrew is installed
-if ! command -v brew &> /dev/null
-then
-    echo "Homebrew is not installed, installing now..."
-    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-else
-    echo "Homebrew is already installed!"
-fi
- 
+
 # Check if git is installed
 if ! command -v git &> /dev/null
 then
@@ -18,10 +9,20 @@ else
     echo "Git is already installed!"
 fi
  
-# Check if Node.js is installed
+# Check if Node.js is installed. If Node is not installed, check homebrew/install homebrew and Node.js 18.
 if ! command -v node &> /dev/null
 then
-    echo "Node.js is not installed, installing now..."
+    echo "Node.js is not installed, installing Node.js using homebrew now..."
+
+    # Check if Homebrew is installed
+    if ! command -v brew &> /dev/null
+    then
+        echo "Homebrew is not installed, installing now..."
+        /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+    else
+        echo "Homebrew is already installed!"
+    fi
+
     brew install node@18
     brew link --overwrite --force node@18
 else
@@ -48,17 +49,17 @@ else
     echo "TypeScript is already installed!"
 fi
  
-# Check the version of npm
-NPM_VERSION=$(npm -v)
-echo "The current version of npm is: $NPM_VERSION"
+# # Check the version of npm
+# NPM_VERSION=$(npm -v)
+# echo "The current version of npm is: $NPM_VERSION"
 
-# Check if npm version is >=7 and <10
-if (( $(echo "$NPM_VERSION >= 7" | bc -l) )) && (( $(echo "$NPM_VERSION < 10" | bc -l) )); then
-    echo "npm version is in the correct range."
-else
-    echo "npm version is not in the correct range, reinstalling npm to version 9..."
-    npm install -g npm@9
-fi
+# # Check if npm version is >=7 and <10
+# if (( $(echo "$NPM_VERSION >= 7" | bc -l) )) && (( $(echo "$NPM_VERSION < 10" | bc -l) )); then
+#     echo "npm version is in the correct range."
+# else
+#     echo "npm version is not in the correct range, reinstalling npm to version 9..."
+#     npm install -g npm@9
+# fi
  
 # Check if office_addin_sample_scripts are installed
 if ! npm list -g --depth=0 | grep office_addin_sample_scripts &> /dev/null

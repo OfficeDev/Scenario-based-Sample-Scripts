@@ -49,17 +49,17 @@ else
     echo "TypeScript is already installed!"
 fi
  
-# Check the version of npm
-NPM_VERSION=$(npm -v)
-echo "The current version of npm is: $NPM_VERSION"
+# # Check the version of npm
+# NPM_VERSION=$(npm -v)
+# echo "The current version of npm is: $NPM_VERSION"
 
-# Check if npm version is >=7 and <10
-if (( $(echo "$NPM_VERSION >= 7" | bc -l) )) && (( $(echo "$NPM_VERSION < 10" | bc -l) )); then
-    echo "npm version is in the correct range."
-else
-    echo "npm version is not in the correct range, reinstalling npm to version 9..."
-    npm install -g npm@9
-fi
+# # Check if npm version is >=7 and <10
+# if (( $(echo "$NPM_VERSION >= 7" | bc -l) )) && (( $(echo "$NPM_VERSION < 10" | bc -l) )); then
+#     echo "npm version is in the correct range."
+# else
+#     echo "npm version is not in the correct range, reinstalling npm to version 9..."
+#     npm install -g npm@9
+# fi
  
 # Check if office_addin_sample_scripts are installed
 if ! npm list -g --depth=0 | grep office_addin_sample_scripts &> /dev/null

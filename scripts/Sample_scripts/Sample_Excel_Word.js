@@ -228,7 +228,7 @@ function exec_script_Excel_Hello_World() {
             spinner.start();
             shell.exec('git clone https://github.com/OfficeDev/Office-Addin-TaskPane-React.git', { async: true }, (code, stdout, stderr) => {
                 shell.cd('./Office-Addin-TaskPane-React');
-                shell.exec('npm run convert-to-single-host --if-present --Excel', { async: true }, (code, stdout, stderr) => {
+                shell.exec('npm run convert-to-single-host --if-present -- excel', { async: true }, (code, stdout, stderr) => {
                     spinner.stop(true);
                     readline.clearLine(process.stdout, 0);
                     readline.cursorTo(process.stdout, 0);
@@ -253,7 +253,7 @@ function exec_script_Excel_Hello_World() {
                         if (shell.which('code')) {
                             console.log('Visual Studio Code is installed on your machine. Ready to launch for code exploration.');
                             is_vscode_installed = true;
-                            shell.exec('code -n . ./README.md');
+                            shell.exec('code -n . ./src/taskpane/office-document.ts');
                         }
                         else {
                             console.log('Visual Studio Code is not installed on your machine.');
@@ -322,80 +322,81 @@ function exec_script_Word_Hello_World() {
             let spinner = new cli_spinner_1.Spinner('Processing.. %s');
             spinner.setSpinnerString('|/-\\');
             spinner.start();
-            shell.exec('git clone git clone https://github.com/OfficeDev/Office-Addin-TaskPane-React.git', { async: true }, (code, stdout, stderr) => {
+            shell.exec('git clone https://github.com/OfficeDev/Office-Addin-TaskPane-React.git', { async: true }, (code, stdout, stderr) => {
                 shell.cd('./Office-Addin-TaskPane-React');
-                // shell.exec('git sparse-checkout set Mail-Merge-Sample-Add-in/', {async:true}, (code, stdout, stderr) => {
-                spinner.stop(true);
-                readline.clearLine(process.stdout, 0);
-                readline.cursorTo(process.stdout, 0);
-                // Step 2: Check if VSCode is installed
-                console.log('Step [1/3] completed!');
-                console.log('--------------------------------------------------------------------------------------------------------');
-                // Ask user if sample Add-in automatic launch is needed
-                let rl = readline.createInterface({
-                    input: process.stdin,
-                    output: process.stdout
-                });
-                let auto_launch_answer = false;
-                rl.question('Proceed to launch Office with the sample add-in? (Y/N)\n', (answer) => {
-                    if (answer.trim().toLowerCase() == 'y') {
-                        auto_launch_answer = true;
-                    }
-                    rl.close();
+                shell.exec('npm run convert-to-single-host --if-present -- word', { async: true }, (code, stdout, stderr) => {
+                    spinner.stop(true);
+                    readline.clearLine(process.stdout, 0);
+                    readline.cursorTo(process.stdout, 0);
                     // Step 2: Check if VSCode is installed
-                    console.log('Step [2/3]: Checking if Visual Studio Code is installed...');
-                    if (shell.which('code')) {
-                        console.log('Visual Studio Code is installed on your machine. Ready to launch for code exploration.');
-                        is_vscode_installed = true;
-                        shell.exec('code -n . ./README.md');
-                    }
-                    else {
-                        console.log('Visual Studio Code is not installed on your machine.');
-                        if (os.platform() == 'darwin') {
-                            shell.exec('open .');
-                        }
-                        else if (os.platform() == 'win32') {
-                            shell.exec('start .');
-                        }
-                    }
-                    console.log('Step [2/3] completed!');
+                    console.log('Step [1/3] completed!');
                     console.log('--------------------------------------------------------------------------------------------------------');
-                    reportUsageData('Word_Hello_World', auto_launch_answer, is_vscode_installed);
-                    if (auto_launch_answer) {
-                        // Continue with the operations
-                        // Step 3: Provide user the command to side-load add-in directly 
-                        console.log('Step [3/3]: Automatically launch add-in with Word...');
-                        console.log('The process is expected to finish shortly, thank you for your patience...');
-                        spinner.text = 'Processing... (installation of all dependencies may take a few minutes)';
-                        spinner.start();
-                        // shell.cd('./Word-Add-in-AIGC');
-                        shell.exec('npm install', { async: true }, (code, stdout, stderr) => {
-                            shell.exec('npm run start', { async: true }, (code, stdout, stderr) => {
-                                spinner.stop(true);
-                                readline.clearLine(process.stdout, 0);
-                                readline.cursorTo(process.stdout, 0);
-                                console.log('Step [3/3] completed!');
-                                console.log('--------------------------------------------------------------------------------------------------------');
-                                FreePortAlert();
-                                console.log('Finished!');
-                                console.log('--------------------------------------------------------------------------------------------------------');
-                                resolve(is_vscode_installed);
+                    // Ask user if sample Add-in automatic launch is needed
+                    let rl = readline.createInterface({
+                        input: process.stdin,
+                        output: process.stdout
+                    });
+                    let auto_launch_answer = false;
+                    rl.question('Proceed to launch Office with the sample add-in? (Y/N)\n', (answer) => {
+                        if (answer.trim().toLowerCase() == 'y') {
+                            auto_launch_answer = true;
+                        }
+                        rl.close();
+                        // Step 2: Check if VSCode is installed
+                        console.log('Step [2/3]: Checking if Visual Studio Code is installed...');
+                        if (shell.which('code')) {
+                            console.log('Visual Studio Code is installed on your machine. Ready to launch for code exploration.');
+                            is_vscode_installed = true;
+                            shell.exec('code -n . ./src/taskpane/office-document.ts');
+                        }
+                        else {
+                            console.log('Visual Studio Code is not installed on your machine.');
+                            if (os.platform() == 'darwin') {
+                                shell.exec('open .');
+                            }
+                            else if (os.platform() == 'win32') {
+                                shell.exec('start .');
+                            }
+                        }
+                        console.log('Step [2/3] completed!');
+                        console.log('--------------------------------------------------------------------------------------------------------');
+                        reportUsageData('Word_Hello_World', auto_launch_answer, is_vscode_installed);
+                        if (auto_launch_answer) {
+                            // Continue with the operations
+                            // Step 3: Provide user the command to side-load add-in directly 
+                            console.log('Step [3/3]: Automatically launch add-in with Word...');
+                            console.log('The process is expected to finish shortly, thank you for your patience...');
+                            spinner.text = 'Processing... (installation of all dependencies may take a few minutes)';
+                            spinner.start();
+                            // shell.cd('./Word-Add-in-AIGC');
+                            shell.exec('npm install', { async: true }, (code, stdout, stderr) => {
+                                shell.exec('npm run start', { async: true }, (code, stdout, stderr) => {
+                                    spinner.stop(true);
+                                    readline.clearLine(process.stdout, 0);
+                                    readline.cursorTo(process.stdout, 0);
+                                    console.log('Step [3/3] completed!');
+                                    console.log('--------------------------------------------------------------------------------------------------------');
+                                    FreePortAlert();
+                                    console.log('Finished!');
+                                    console.log('--------------------------------------------------------------------------------------------------------');
+                                    resolve(is_vscode_installed);
+                                });
                             });
-                        });
-                    }
-                    else {
-                        // Don't continue with the operations
-                        console.log('Step [3/3] skipped. Auto-launch for the sample has been excluded based on your choice.');
-                        console.log('And you can initiate the sample add-in by executing the following commands:');
-                        console.log('--------------------------------------------------------------------------------------------------------');
-                        console.log('npm install');
-                        console.log('npm run start');
-                        console.log('--------------------------------------------------------------------------------------------------------');
-                        FreePortAlert;
-                        console.log('Finished!');
-                        console.log('--------------------------------------------------------------------------------------------------------');
-                        resolve(is_vscode_installed);
-                    }
+                        }
+                        else {
+                            // Don't continue with the operations
+                            console.log('Step [3/3] skipped. Auto-launch for the sample has been excluded based on your choice.');
+                            console.log('And you can initiate the sample add-in by executing the following commands:');
+                            console.log('--------------------------------------------------------------------------------------------------------');
+                            console.log('npm install');
+                            console.log('npm run start');
+                            console.log('--------------------------------------------------------------------------------------------------------');
+                            FreePortAlert;
+                            console.log('Finished!');
+                            console.log('--------------------------------------------------------------------------------------------------------');
+                            resolve(is_vscode_installed);
+                        }
+                    });
                 });
             });
         });

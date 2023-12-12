@@ -258,7 +258,7 @@ async function exec_script_Excel_Hello_World(){
   
           shell.exec('git clone https://github.com/OfficeDev/Office-Addin-TaskPane-React.git', {async:true}, (code, stdout, stderr) => {
               shell.cd('./Office-Addin-TaskPane-React');
-              shell.exec('npm run convert-to-single-host --if-present --Excel', {async:true}, (code, stdout, stderr) => {
+              shell.exec('npm run convert-to-single-host --if-present -- excel', {async:true}, (code, stdout, stderr) => {
   
               spinner.stop(true);
               readline.clearLine(process.stdout, 0);
@@ -291,7 +291,7 @@ async function exec_script_Excel_Hello_World(){
                   if (shell.which('code')) {
                       console.log('Visual Studio Code is installed on your machine. Ready to launch for code exploration.');
                       is_vscode_installed = true;
-                      shell.exec('code -n . ./README.md');
+                      shell.exec('code -n . ./src/taskpane/office-document.ts');
                   } else {
                       console.log('Visual Studio Code is not installed on your machine.');
                       if (os.platform() == 'darwin') {
@@ -367,9 +367,9 @@ async function exec_script_Word_Hello_World(){
             spinner.setSpinnerString('|/-\\');
             spinner.start();
     
-            shell.exec('git clone git clone https://github.com/OfficeDev/Office-Addin-TaskPane-React.git', {async:true}, (code, stdout, stderr) => {
+            shell.exec('git clone https://github.com/OfficeDev/Office-Addin-TaskPane-React.git', {async:true}, (code, stdout, stderr) => {
                 shell.cd('./Office-Addin-TaskPane-React');
-                // shell.exec('git sparse-checkout set Mail-Merge-Sample-Add-in/', {async:true}, (code, stdout, stderr) => {
+                shell.exec('npm run convert-to-single-host --if-present -- word', {async:true}, (code, stdout, stderr) => {
     
                 spinner.stop(true);
                 readline.clearLine(process.stdout, 0);
@@ -397,7 +397,7 @@ async function exec_script_Word_Hello_World(){
                   if (shell.which('code')) {
                       console.log('Visual Studio Code is installed on your machine. Ready to launch for code exploration.');
                       is_vscode_installed = true;
-                      shell.exec('code -n . ./README.md');
+                      shell.exec('code -n . ./src/taskpane/office-document.ts');
                   } else {
                       console.log('Visual Studio Code is not installed on your machine.');
                       if (os.platform() == 'darwin') {
@@ -451,6 +451,7 @@ async function exec_script_Word_Hello_World(){
                       resolve(is_vscode_installed);
                   }
               });
+            });
             });
         });
 }
