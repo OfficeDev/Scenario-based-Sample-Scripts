@@ -44,7 +44,7 @@ echo "The current version of Node.js is: $(node -v)"
 if ! command -v tsc &> /dev/null
 then
     echo "TypeScript is not installed, installing now..."
-    npm install -g typescript
+    sudo npm install -g typescript
 else
     echo "TypeScript is already installed!"
 fi
@@ -65,7 +65,7 @@ fi
 if ! npm list -g --depth=0 | grep office_addin_sample_scripts &> /dev/null
 then
     echo "office_addin_sample_scripts is not installed, installing now..."
-    npm install -g office_addin_sample_scripts
+    sudo npm install -g office_addin_sample_scripts
 else
     echo "office_addin_sample_scripts has already been installed."
 fi
