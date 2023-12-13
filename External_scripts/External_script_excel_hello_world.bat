@@ -9,6 +9,8 @@ if ErrorLevel 1 (
     del git-installer.exe
     echo Git has been installed.
     echo Restarting script after installed git...
+    start "" "%~0"
+    exit /b
 ) else (
     echo Git is already installed!
 )
@@ -48,7 +50,7 @@ reg query "%regKeys%" >nul 2>&1
 if errorlevel 1 (
     echo Excel is not installed. Please install Excel before running this script.
     echo Press any key to exit...
-set /p ="
+    set /p ="
     exit /b
 ) else (
     echo Excel is installed.

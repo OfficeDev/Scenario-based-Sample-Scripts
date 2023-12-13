@@ -9,6 +9,8 @@ if ErrorLevel 1 (
     del git-installer.exe
     echo Git has been installed.
     echo Restarting script after installed git...
+    start "" "%~0"
+    exit /b
 ) else (
     echo Git is already installed!
 )
