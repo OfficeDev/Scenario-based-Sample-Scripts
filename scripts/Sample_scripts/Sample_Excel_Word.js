@@ -39,12 +39,12 @@ function exec_script_Excel_Mail() {
             spinner.setSpinnerString('|/-\\');
             spinner.start();
             shell.exec('git clone https://github.com/OfficeDev/Excel-Scenario-based-Add-in-Samples.git', { async: true }, (code, stdout, stderr) => {
+                replaceUrl('https://pnptelemetry.azurewebsites.net/pnp-officeaddins/samples/excel-add-in-mail-merge-localhost', 'https://pnptelemetry.azurewebsites.net/pnp-officeaddins/samples/excel-add-in-mail-merge-script', './Excel-Scenario-based-Add-in-Samples/Mail-Merge-Sample-Add-in/src/taskpane/taskpane.html');
                 shell.cd('./Excel-Scenario-based-Add-in-Samples/Mail-Merge-Sample-Add-in');
                 // shell.exec('git sparse-checkout set Mail-Merge-Sample-Add-in/', {async:true}, (code, stdout, stderr) => {
                 spinner.stop(true);
                 readline.clearLine(process.stdout, 0);
                 readline.cursorTo(process.stdout, 0);
-                replaceUrl('https://pnptelemetry.azurewebsites.net/pnp-officeaddins/samples/excel-add-in-mail-merge-localhost', 'https://pnptelemetry.azurewebsites.net/pnp-officeaddins/samples/excel-add-in-mail-merge-script', './src/taskpane/taskpane.html');
                 console.log('Step [1/3] completed!');
                 console.log('--------------------------------------------------------------------------------------------------------');
                 // Ask user if sample Add-in automatic launch is needed
@@ -85,6 +85,7 @@ function exec_script_Excel_Mail() {
                         spinner.text = 'Processing... (installation of all dependencies may take a few minutes)';
                         spinner.start();
                         shell.cd('./Mail-Merge-Sample-Add-in');
+                        let command_npm_install = 'npm install';
                         shell.exec('npm install', { async: true }, (code, stdout, stderr) => {
                             shell.exec('npm run start', { async: true }, (code, stdout, stderr) => {
                                 spinner.stop(true);
@@ -134,9 +135,9 @@ function exec_script_Word_AIGC() {
             spinner.setSpinnerString('|/-\\');
             spinner.start();
             shell.exec('git clone https://github.com/OfficeDev/Word-Scenario-based-Add-in-Samples.git', { async: true }, (code, stdout, stderr) => {
+                replaceUrl('https://pnptelemetry.azurewebsites.net/pnp-officeaddins/samples/word-add-in-aigc-localhost', 'https://pnptelemetry.azurewebsites.net/pnp-officeaddins/samples/word-add-in-aigc-script', './Word-Scenario-based-Add-in-Samples/Word-Add-in-AIGC/src/taskpane/taskpane.html');
                 shell.cd('./Word-Scenario-based-Add-in-Samples/Word-Add-in-AIGC');
                 // shell.exec('git sparse-checkout set Mail-Merge-Sample-Add-in/', {async:true}, (code, stdout, stderr) => {
-                replaceUrl('https://pnptelemetry.azurewebsites.net/pnp-officeaddins/samples/word-add-in-aigc-localhost', 'https://pnptelemetry.azurewebsites.net/pnp-officeaddins/samples/word-add-in-aigc-script', './src/taskpane/taskpane.html');
                 spinner.stop(true);
                 readline.clearLine(process.stdout, 0);
                 readline.cursorTo(process.stdout, 0);
