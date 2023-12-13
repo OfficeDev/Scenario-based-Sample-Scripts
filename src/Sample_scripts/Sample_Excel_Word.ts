@@ -93,7 +93,11 @@ async function exec_script_Excel_Mail(){
                     spinner.start();
 
                     shell.cd('./Mail-Merge-Sample-Add-in');
-                    shell.exec('npm install', {async:true}, (code, stdout, stderr) => {
+                    let command_npm_install = 'npm install';
+                    if (os.platform() == 'darwin') {
+                        command_npm_install = 'sudo npm install';
+                    }
+                    shell.exec(command_npm_install, {async:true}, (code, stdout, stderr) => {
                         shell.exec('npm run start', {async:true}, (code, stdout, stderr) => {
 
                         spinner.stop(true);

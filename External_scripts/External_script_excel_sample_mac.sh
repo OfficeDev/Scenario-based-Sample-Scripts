@@ -91,6 +91,6 @@ else
     echo "Port 3000 is not in use."
 fi
 
-sudo chown -R $(whoami) "Users/$(whoami).npm"
+# sudo chown -R $(whoami) "Users/$(whoami).npm"
 
 office_addin_sample_scripts launch excel_mail $foldername
