@@ -21,6 +21,7 @@ then
         
         /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
         exit_status=$?
+        echo "Exit status of Installing homebrew: $exit_status"
 
         if [ $exit_status -ne 0 ]; then
         echo "An error occurred while running the command. Trying to fix it..."
