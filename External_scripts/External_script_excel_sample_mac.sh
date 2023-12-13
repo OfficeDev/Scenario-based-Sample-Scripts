@@ -42,6 +42,7 @@ else
         echo "The current version of Node.js is not 16 or 18, installing Node.js 18 now..."
         brew install node@16
         brew link --overwrite --force node@16
+        exit_status=$?
         if [ $exit_status -ne 0 ]; then
             echo "An error occurred while linking node. Trying to fix it..."
             sudo chown -R $(whoami) /usr/local
