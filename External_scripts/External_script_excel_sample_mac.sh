@@ -24,9 +24,9 @@ then
         echo "Exit status of Installing homebrew: $exit_status"
 
         if [ $exit_status -ne 0 ]; then
-        echo "An error occurred while running the command. Trying to fix it..."
-        sudo chown -R $(whoami) /usr/local/share/zsh /usr/local/share/zsh/site-functions
-fi
+            echo "An error occurred while running the command. Trying to fix it..."
+            sudo chown -R $(whoami) /usr/local/share/zsh /usr/local/share/zsh/site-functions
+        fi
     else
         echo "Homebrew is already installed!"
     fi
@@ -35,14 +35,17 @@ fi
     brew link --overwrite --force node
 else
     echo "Node.js is already installed!"
-    # #check the version of Node.js
-    # NODE_VERSION=$(node -v)
-    # if [[ "$NODE_VERSION" != "v16"*  && "$NODE_VERSION" != "v18"* ]]
-    # then
-    #     echo "The current version of Node.js is not 16 or 18, installing Node.js 18 now..."
-    #     brew install node@18
-    #     brew link --overwrite --force node@18
-    # fi
+    #check the version of Node.js
+    NODE_VERSION=$(node -v)
+    if [[ "$NODE_VERSION" != "v16"*  && "$NODE_VERSION" != "v18"* ]]
+    then
+        echo "The current version of Node.js is not 16 or 18, installing Node.js 18 now..."
+        brew install node@18
+        brew link --overwrite --force node@18
+        if [ $exit_status -ne 0 ]; then
+            echo "An error occurred while linking node. Trying to fix it..."
+            sudo chown -R $(whoami) /usr/local
+    fi
 fi
 
 
