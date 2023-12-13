@@ -18,8 +18,14 @@ then
     if ! command -v brew &> /dev/null
     then
         echo "Homebrew is not installed, installing now..."
-        sudo chown -R $(whoami) /usr/local/share/zsh /usr/local/share/zsh/site-functions
+        
         /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+        exit_status=$?
+
+        if [ $exit_status -ne 0 ]; then
+        echo "An error occurred while running the command. Trying to fix it..."
+        sudo chown -R $(whoami) /usr/local/share/zsh /usr/local/share/zsh/site-functions
+fi
     else
         echo "Homebrew is already installed!"
     fi
