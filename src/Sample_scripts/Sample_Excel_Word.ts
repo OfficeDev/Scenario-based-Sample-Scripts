@@ -39,9 +39,13 @@ async function exec_script_Excel_Mail(){
 
         shell.exec('git clone https://github.com/OfficeDev/Excel-Scenario-based-Add-in-Samples.git', {async:true}, (code, stdout, stderr) => {
             
-            replaceUrl('https://pnptelemetry.azurewebsites.net/pnp-officeaddins/samples/excel-add-in-mail-merge-localhost', 'https://pnptelemetry.azurewebsites.net/pnp-officeaddins/samples/excel-add-in-mail-merge-script', './src/taskpane/taskpane.html');
-
-            shell.cd('./Excel-Scenario-based-Add-in-Samples/Mail-Merge-Sample-Add-in');
+            replaceUrl('https://pnptelemetry.azurewebsites.net/pnp-officeaddins/samples/excel-add-in-mail-merge-localhost', 'https://pnptelemetry.azurewebsites.net/pnp-officeaddins/samples/excel-add-in-mail-merge-script', './Excel-Scenario-based-Add-in-Samples/Mail-Merge-Sample-Add-in/src/taskpane/taskpane.html')
+                .then(() => {
+                    shell.cd('./Excel-Scenario-based-Add-in-Samples/Mail-Merge-Sample-Add-in');
+                })
+                .catch((err) => {
+                    console.error(err);
+                });
             // shell.exec('git sparse-checkout set Mail-Merge-Sample-Add-in/', {async:true}, (code, stdout, stderr) => {
 
             spinner.stop(true);
@@ -150,8 +154,14 @@ async function exec_script_Word_AIGC(){
   
           shell.exec('git clone https://github.com/OfficeDev/Word-Scenario-based-Add-in-Samples.git', {async:true}, (code, stdout, stderr) => {
 
-            replaceUrl('https://pnptelemetry.azurewebsites.net/pnp-officeaddins/samples/word-add-in-aigc-localhost', 'https://pnptelemetry.azurewebsites.net/pnp-officeaddins/samples/word-add-in-aigc-script', './src/taskpane/taskpane.html');
-            shell.cd('./Word-Scenario-based-Add-in-Samples/Word-Add-in-AIGC');
+            replaceUrl('https://pnptelemetry.azurewebsites.net/pnp-officeaddins/samples/word-add-in-aigc-localhost', 'https://pnptelemetry.azurewebsites.net/pnp-officeaddins/samples/word-add-in-aigc-script', './Word-Scenario-based-Add-in-Samples/Word-Add-in-AIGC/src/taskpane/taskpane.html')
+                .then(() => {
+                    shell.cd('./Word-Scenario-based-Add-in-Samples/Word-Add-in-AIGC');
+                })
+                .catch((err) => {
+                    console.error(err);
+                });
+            // shell.cd('./Word-Scenario-based-Add-in-Samples/Word-Add-in-AIGC');
             // shell.exec('git sparse-checkout set Mail-Merge-Sample-Add-in/', {async:true}, (code, stdout, stderr) => {
             
 
@@ -461,19 +471,22 @@ async function exec_script_Word_Hello_World(){
 }
 
 function replaceUrl(url: string, newUrl: string, filePath: string) {
-    fs.readFile(filePath, 'utf8', (err, data) => {
-        if (err) {
-            console.error(err);
-            return;
-        }
-
-        const result = data.replace(url, newUrl);
-
-        fs.writeFile(filePath, result, 'utf8', (err) => {
+    return new Promise((resolve, reject) => {
+        fs.readFile(filePath, 'utf8', (err, data) => {
             if (err) {
                 console.error(err);
                 return;
             }
+
+            const result = data.replace(url, newUrl);
+
+            fs.writeFile(filePath, result, 'utf8', (err) => {
+                if (err) {
+                    console.error(err);
+                    return;
+                }
+                resolve(true);
+            });
         });
     });
 }
