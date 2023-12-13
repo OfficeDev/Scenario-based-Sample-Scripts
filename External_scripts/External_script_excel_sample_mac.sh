@@ -32,17 +32,17 @@ fi
     fi
 
     brew install node@18
-    brew link --overwrite --force node@18
+    brew link --overwrite --force node
 else
     echo "Node.js is already installed!"
-    #check the version of Node.js
-    NODE_VERSION=$(node -v)
-    if [[ "$NODE_VERSION" != "v16"*  && "$NODE_VERSION" != "v18"* ]]
-    then
-        echo "The current version of Node.js is not 16 or 18, installing Node.js 18 now..."
-        brew install node@18
-        brew link --overwrite --force node@18
-    fi
+    # #check the version of Node.js
+    # NODE_VERSION=$(node -v)
+    # if [[ "$NODE_VERSION" != "v16"*  && "$NODE_VERSION" != "v18"* ]]
+    # then
+    #     echo "The current version of Node.js is not 16 or 18, installing Node.js 18 now..."
+    #     brew install node@18
+    #     brew link --overwrite --force node@18
+    # fi
 fi
 
 
@@ -98,6 +98,6 @@ else
     echo "Port 3000 is not in use."
 fi
 
-# sudo chown -R $(whoami) "Users/$(whoami).npm"
+sudo chown -R $(whoami) ~/.npm
 
 office_addin_sample_scripts launch excel_mail $foldername
