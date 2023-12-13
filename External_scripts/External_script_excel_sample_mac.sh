@@ -35,7 +35,7 @@ then
     brew link --overwrite --force node@18
 else
     echo "Node.js is already installed!"
-    check the version of Node.js
+    # check the version of Node.js
     NODE_VERSION=$(node -v)
     if [[ "$NODE_VERSION" != "v16"*  && "$NODE_VERSION" != "v18"* ]]
     then
