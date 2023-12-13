@@ -31,17 +31,17 @@ then
         echo "Homebrew is already installed!"
     fi
 
-    brew install node@20
-    brew link --overwrite --force node@20
+    brew install node@16
+    brew link --overwrite --force node@16
 else
     echo "Node.js is already installed!"
     # check the version of Node.js
     NODE_VERSION=$(node -v)
-    if [[ "$NODE_VERSION" != "v16"*  && "$NODE_VERSION" != "v20"* ]]
+    if [[ "$NODE_VERSION" != "v16"* ]]
     then
         echo "The current version of Node.js is not 16 or 18, installing Node.js 18 now..."
         brew install node@18
-        brew link --overwrite --force node@20
+        brew link --overwrite --force node@16
         if [ $exit_status -ne 0 ]; then
             echo "An error occurred while linking node. Trying to fix it..."
             sudo chown -R $(whoami) /usr/local
