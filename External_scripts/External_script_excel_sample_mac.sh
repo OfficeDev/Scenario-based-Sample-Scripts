@@ -79,6 +79,13 @@ echo "The current version of Node.js is: $(node -v)"
 #     npm install -g npm@9
 # fi
  
+#Check if Excel is installed
+if ! mdfind -name "Microsoft Excel.app" | grep -q "Microsoft Excel.app"
+then
+    echo "Microsoft Excel is not installed. Please install Microsoft Excel and then rerun the script."
+    exit 1
+fi
+
 # Check if office_addin_sample_scripts are installed
 if ! npm list -g --depth=0 | grep office_addin_sample_scripts &> /dev/null
 then

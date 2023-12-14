@@ -87,7 +87,14 @@ then
 else
     echo "office_addin_sample_scripts has already been installed."
 fi
- 
+
+#Check if Word is installed
+if ! mdfind -name "Microsoft Word.app" | grep -q "Microsoft Word.app"
+then
+    echo "Microsoft Word is not installed. Please install Microsoft Word and then rerun the script."
+    exit 1
+fi
+
 # Now Office add-in sample scripts have been installed. Create a sample project.
 foldername="Office_sample_Word_AIGC"
 counter=0
