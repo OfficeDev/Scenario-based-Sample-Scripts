@@ -3,6 +3,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const yargs = require("yargs");
 const fs = require("fs");
+const readline = require("readline");
 const { exec_script_Excel_Mail, exec_script_Word_AIGC, exec_script_Excel_Hello_World, exec_script_Word_Hello_World } = require('./Sample_scripts/Sample_Excel_Word');
 function exec_script() {
     yargs
@@ -56,4 +57,11 @@ function exec_script() {
         .argv;
 }
 exec_script();
+const rl = readline.createInterface({
+    input: process.stdin,
+    output: process.stdout
+});
+rl.question('Press any key to exit...', (answer) => {
+    rl.close();
+});
 //# sourceMappingURL=index.js.map

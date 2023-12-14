@@ -2,6 +2,7 @@
 
 import * as yargs from 'yargs';
 import * as fs from 'fs';
+import * as readline from 'readline';
 const { exec_script_Excel_Mail, exec_script_Word_AIGC, exec_script_Excel_Hello_World, exec_script_Word_Hello_World } = require('./Sample_scripts/Sample_Excel_Word');
 
 function exec_script(){
@@ -67,6 +68,15 @@ function exec_script(){
 }
 
 exec_script();
+
+const rl = readline.createInterface({
+    input: process.stdin,
+    output: process.stdout
+});
+
+rl.question('Press any key to exit...', (answer) => {
+    rl.close();
+});
 
 
 

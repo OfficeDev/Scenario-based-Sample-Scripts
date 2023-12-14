@@ -11,6 +11,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 const shell = require("shelljs");
 const cli_spinner_1 = require("cli-spinner");
+const child_process_1 = require("child_process");
 const readline = require("readline");
 const usageData = require("office-addin-usage-data");
 const os = require("os");
@@ -190,12 +191,32 @@ function exec_script_Word_AIGC() {
                         // Step 3: Provide user the command to side-load add-in directly 
                         console.log('Step [3/3]: Automatically launch add-in with Word...');
                         console.log('The process is expected to finish shortly, thank you for your patience...');
-                        spinner.text = 'Processing...(installation of all dependencies may take a few minutes)';
-                        spinner.start();
+                        // spinner.text = 'Processing...(installation of all dependencies may take a few minutes)';
+                        // spinner.start();
                         shell.cd('./Word-Add-in-AIGC');
-                        // shell.config.silent = false;
-                        shell.exec('npm install --loglevel verbose', { async: true }, (code, stdout, stderr) => {
-                            shell.exec('npm run start', { async: true }, (code, stdout, stderr) => {
+                        shell.exec('npm set progress always');
+                        const install = (0, child_process_1.spawn)('cmd.exe', ['/c', 'npm install --loglevel verbose']);
+                        install.stdout.on('data', (data) => {
+                            process.stdout.write(data);
+                        });
+                        install.stderr.on('data', (data) => {
+                            process.stderr.write(data);
+                        });
+                        install.on('close', (code) => {
+                            if (code !== 0) {
+                                console.log(`Err: npm install process exited with code ${code}`);
+                            }
+                            const start = (0, child_process_1.spawn)('cmd.exe', ['/c', 'npm run start']);
+                            start.stdout.on('data', (data) => {
+                                console.log(`${data}`);
+                            });
+                            start.stderr.on('data', (data) => {
+                                console.error(`stderr: ${data}`);
+                            });
+                            start.on('close', (code) => {
+                                if (code !== 0) {
+                                    console.log(`npm run start process exited with code ${code}`);
+                                }
                                 spinner.stop(true);
                                 readline.clearLine(process.stdout, 0);
                                 readline.cursorTo(process.stdout, 0);
@@ -204,7 +225,14 @@ function exec_script_Word_AIGC() {
                                 FreePortAlert();
                                 console.log('Finished!');
                                 console.log('--------------------------------------------------------------------------------------------------------');
-                                resolve(is_vscode_installed);
+                                const rl = readline.createInterface({
+                                    input: process.stdin,
+                                    output: process.stdout
+                                });
+                                rl.question('Press any key to exit...', (answer) => {
+                                    rl.close();
+                                    resolve(is_vscode_installed);
+                                });
                             });
                         });
                     }
@@ -460,6 +488,25 @@ function FreePortAlert() {
         console.log('npm run start');
         console.log('--------------------------------------------------------------------------------------------------------');
     }
+}
+function installDependencies() {
+    const npmInstall = (0, child_process_1.spawn)('npm', ['install']);
+    npmInstall.stdout.on('data', (data) => {
+        process.stdout.write(data);
+    });
+    npmInstall.stderr.on('data', (data) => {
+        process.stderr.write(data);
+    });
+    npmInstall.on('close', (code) => {
+        if (code !== 0) {
+            console.log(`npm install process exited with code ${code}`);
+        }
+        else {
+            console.log('Dependencies installed successfully');
+        }
+    });
+}
+function launchAddinAndExit() {
 }
 module.exports = { exec_script_Excel_Mail, exec_script_Word_AIGC, exec_script_Excel_Hello_World, exec_script_Word_Hello_World };
 //# sourceMappingURL=Sample_Excel_Word.js.map
