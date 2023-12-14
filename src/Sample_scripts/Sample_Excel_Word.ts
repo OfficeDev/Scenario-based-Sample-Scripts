@@ -219,7 +219,12 @@ async function exec_script_Word_AIGC(){
                     shell.cd('./Word-Add-in-AIGC');
                     shell.exec('npm set progress always');
 
-                    const install = spawn('cmd.exe', ['/c', 'npm install --loglevel verbose']);
+                    let env = 'cmd.exe';
+                    if (os.platform() == 'darwin') {
+                        env = 'sh';
+                    }
+
+                    const install = spawn(env, ['/c', 'npm install --loglevel verbose']);
                     install.stdout.on('data', (data) => {
                         process.stdout.write(data);
                     });
