@@ -221,7 +221,7 @@ async function exec_script_Word_AIGC(){
 
                     let env = 'cmd.exe';
                     let para = '/c';
-                    if (os.platform() != 'win32') {
+                    if (os.platform() == 'darwin') {
                         env = 'sh';
                         para = '-c';
                     }
