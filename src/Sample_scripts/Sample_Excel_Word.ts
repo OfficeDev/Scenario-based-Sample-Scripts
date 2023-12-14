@@ -220,11 +220,13 @@ async function exec_script_Word_AIGC(){
                     shell.exec('npm set progress always');
 
                     let env = 'cmd.exe';
-                    if (os.platform() == 'darwin') {
+                    let para = '/c';
+                    if (os.platform() != 'win32') {
                         env = 'sh';
+                        para = '-c';
                     }
 
-                    const install = spawn(env, ['/c', 'npm install --loglevel verbose']);
+                    const install = spawn(env, [para, 'npm install --loglevel verbose']);
                     install.stdout.on('data', (data) => {
                         process.stdout.write(data);
                     });
