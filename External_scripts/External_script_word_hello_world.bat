@@ -10,7 +10,7 @@ if ErrorLevel 1 (
     echo Git has been installed.
     echo Restarting script after installed git...
     start "" "%~0"
-    exit /b
+    exit
 ) else (
     echo Git is already installed!
 )
@@ -23,6 +23,9 @@ if ErrorLevel 1 (
     msiexec /i node.msi /passive
     del node.msi
     echo Node.js has been installed.
+    echo Restarting script after installed Node...
+    start "" "%~0"
+    exit
 ) else (
     echo Node.js is already installed!
 )
@@ -34,9 +37,6 @@ if ErrorLevel 1 (
     echo Sample scripts are not prepared, installing now...
     npm install -g office_addin_sample_scripts
     echo Sample scripts has been installed.
-    echo Restarting this script after installed sample scripts...
-    start "" "%~0"
-    exit /b
 ) else (
     echo Sample scripts is already installed!
 )
@@ -51,7 +51,7 @@ if errorlevel 1 (
     echo Word is not installed. Please install Word before running this script.
     echo Press any key to exit...
     set /p ="
-    exit /b
+    exit
 ) else (
     echo Word is installed.
 )
