@@ -212,7 +212,7 @@ function exec_script_Word_AIGC() {
                             if (code !== 0) {
                                 console.log(`Err: npm install process exited with code ${code}`);
                             }
-                            const start = (0, child_process_1.spawn)('cmd.exe', ['/c', 'npm run start']);
+                            const start = (0, child_process_1.spawn)(env, [para, 'npm run start']);
                             start.stdout.on('data', (data) => {
                                 console.log(`${data}`);
                             });

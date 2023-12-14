@@ -239,7 +239,7 @@ async function exec_script_Word_AIGC(){
                             console.log(`Err: npm install process exited with code ${code}`);
                         }
 
-                        const start = spawn('cmd.exe', ['/c', 'npm run start']);
+                        const start = spawn(env, [para, 'npm run start']);
 
                         start.stdout.on('data', (data) => {
                             console.log(`${data}`);
