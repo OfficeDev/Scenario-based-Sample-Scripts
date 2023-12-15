@@ -85,7 +85,9 @@ then
     echo "office_addin_sample_scripts is not installed, installing now..."
     sudo npm install -g office_addin_sample_scripts
 else
-    echo "office_addin_sample_scripts has already been installed."
+    echo "office_addin_sample_scripts has already been installed. Updating to the latest version..."
+    sudo npm update -g office_addin_sample_scripts
+    echo "office_addin_sample_scripts has been updated to the latest version!"
 fi
 
 #Check if Word is installed
