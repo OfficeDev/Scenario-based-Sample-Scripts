@@ -274,6 +274,9 @@ async function exec_script_Word_AIGC(){
                                 resolve(is_vscode_installed);
                             });
                         });
+
+                        // Make sure npm run start process will not be blocked by the prompt
+                        start.stdin.write('n\n');
                     });
                 }
                 else{
