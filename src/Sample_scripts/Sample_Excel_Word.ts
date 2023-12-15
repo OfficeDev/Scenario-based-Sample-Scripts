@@ -311,45 +311,48 @@ async function exec_script_Word_AIGC(){
                                 }
                             }
                         }
+                        else {
+                            
+                            // if npm install succeeded
+                            const start = spawn(env, [para, 'npm run start']);
 
-                        const start = spawn(env, [para, 'npm run start']);
-
-                        start.stdout.on('data', (data) => {
-                            console.log(`${data}`);
-                        });
-                    
-                        start.stderr.on('data', (data) => {
-                            console.error(`stderr: ${data}`);
-                        });
-                    
-                        start.on('close', (code) => {
-                            if (code !== 0) {
-                                console.log(`npm run start process exited with code ${code}`);
-                            }
-                    
-                            spinner.stop(true);
-                            readline.clearLine(process.stdout, 0);
-                            readline.cursorTo(process.stdout, 0);
-                    
-                            console.log('Step [3/3] completed!');
-                            console.log('--------------------------------------------------------------------------------------------------------');
-                            FreePortAlert();
-                            console.log('Finished!');
-                            console.log('--------------------------------------------------------------------------------------------------------');
-                    
-                            const rl = readline.createInterface({
-                                input: process.stdin,
-                                output: process.stdout
+                            start.stdout.on('data', (data) => {
+                                console.log(`${data}`);
                             });
                         
-                            rl.question('Press any key to exit...', (answer) => {
-                                rl.close();
-                                resolve(is_vscode_installed);
+                            start.stderr.on('data', (data) => {
+                                console.error(`stderr: ${data}`);
                             });
-                        });
+                        
+                            start.on('close', (code) => {
+                                if (code !== 0) {
+                                    console.log(`npm run start process exited with code ${code}`);
+                                }
+                        
+                                spinner.stop(true);
+                                readline.clearLine(process.stdout, 0);
+                                readline.cursorTo(process.stdout, 0);
+                        
+                                console.log('Step [3/3] completed!');
+                                console.log('--------------------------------------------------------------------------------------------------------');
+                                FreePortAlert();
+                                console.log('Finished!');
+                                console.log('--------------------------------------------------------------------------------------------------------');
+                        
+                                const rl = readline.createInterface({
+                                    input: process.stdin,
+                                    output: process.stdout
+                                });
+                            
+                                rl.question('Press any key to exit...', (answer) => {
+                                    rl.close();
+                                    resolve(is_vscode_installed);
+                                });
+                            });
 
-                        // Make sure npm run start process will not be blocked by the prompt
-                        start.stdin.write('n\n');
+                            // Make sure npm run start process will not be blocked by the prompt
+                            start.stdin.write('n\n');
+                            }
                     });
                 }
                 else{
