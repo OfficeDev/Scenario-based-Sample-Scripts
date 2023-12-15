@@ -89,10 +89,12 @@ else
 fi
 
 #Check if Word is installed
-if ! mdfind -name "Microsoft Word.app" | grep -q "Microsoft Word.app"
-then
-    echo "Microsoft Word is not installed. Please install Microsoft Word and then rerun the script."
-    exit 1
+if [ "$1" != "bypass" ]; then
+    if ! mdfind -name "Microsoft Word.app" | grep -q "Microsoft Word.app"
+    then
+        echo "Microsoft Word is not installed. Please install Microsoft Word and then rerun the script."
+        exit 1
+    fi
 fi
 
 # Now Office add-in sample scripts have been installed. Create a sample project.
