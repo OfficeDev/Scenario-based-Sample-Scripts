@@ -84,16 +84,39 @@ function exec_script_Excel_Mail() {
                     console.log('--------------------------------------------------------------------------------------------------------');
                     reportUsageData('Excel_Mail', auto_launch_answer, is_vscode_installed);
                     if (auto_launch_answer) {
-                        // Continue with the operations
                         // Step 3: Provide user the command to side-load add-in directly 
-                        console.log('Step [3/3]: Automatically launch add-in with Excel...');
+                        console.log('Step [3/3]: Automatically launch add-in with Word...');
                         console.log('The process is expected to finish shortly, thank you for your patience...');
-                        spinner.text = 'Processing... (installation of all dependencies may take a few minutes)';
-                        spinner.start();
                         shell.cd('./Mail-Merge-Sample-Add-in');
-                        let command_npm_install = 'npm install';
-                        shell.exec('npm install', { async: true }, (code, stdout, stderr) => {
-                            shell.exec('npm run start', { async: true }, (code, stdout, stderr) => {
+                        shell.exec('npm set progress always');
+                        let env = 'cmd.exe';
+                        let para = '/c';
+                        if (os.platform() == 'darwin') {
+                            env = 'sh';
+                            para = '-c';
+                        }
+                        const install = (0, child_process_1.spawn)(env, [para, 'npm install --loglevel verbose']);
+                        install.stdout.on('data', (data) => {
+                            process.stdout.write(data);
+                        });
+                        install.stderr.on('data', (data) => {
+                            process.stderr.write(data);
+                        });
+                        install.on('close', (code) => {
+                            if (code !== 0) {
+                                console.log(`Err: npm install process exited with code ${code}`);
+                            }
+                            const start = (0, child_process_1.spawn)(env, [para, 'npm run start']);
+                            start.stdout.on('data', (data) => {
+                                console.log(`${data}`);
+                            });
+                            start.stderr.on('data', (data) => {
+                                console.error(`stderr: ${data}`);
+                            });
+                            start.on('close', (code) => {
+                                if (code !== 0) {
+                                    console.log(`npm run start process exited with code ${code}`);
+                                }
                                 spinner.stop(true);
                                 readline.clearLine(process.stdout, 0);
                                 readline.cursorTo(process.stdout, 0);
@@ -102,10 +125,17 @@ function exec_script_Excel_Mail() {
                                 FreePortAlert();
                                 console.log('Finished!');
                                 console.log('--------------------------------------------------------------------------------------------------------');
-                                // console.log('Hint: To try out the full functionality, please follow the instruction in the opening web page: Register a web application with the Azure Active Directory admin center.');
-                                // open('https://github.com/OfficeDev/Excel-Scenario-based-Add-in-Samples/tree/main/Mail-Merge-Sample-Add-in');
-                                resolve(is_vscode_installed);
+                                const rl = readline.createInterface({
+                                    input: process.stdin,
+                                    output: process.stdout
+                                });
+                                rl.question('Press any key to exit...', (answer) => {
+                                    rl.close();
+                                    resolve(is_vscode_installed);
+                                });
                             });
+                            // Make sure npm run start process will not be blocked by the prompt
+                            start.stdin.write('n\n');
                         });
                     }
                     else {
@@ -119,9 +149,10 @@ function exec_script_Excel_Mail() {
                         FreePortAlert();
                         console.log('Finished!');
                         console.log('--------------------------------------------------------------------------------------------------------');
-                        // console.log('Hint: To try out the full functionality, please follow the instruction in the opening web page: Register a web application with the Azure Active Directory admin center.');
-                        // open('https://github.com/OfficeDev/Excel-Scenario-based-Add-in-Samples/tree/main/Mail-Merge-Sample-Add-in');
-                        resolve(is_vscode_installed);
+                        rl.question('Press any key to exit...', (answer) => {
+                            rl.close();
+                            resolve(is_vscode_installed);
+                        });
                     }
                 });
             });
@@ -187,12 +218,9 @@ function exec_script_Word_AIGC() {
                     console.log('--------------------------------------------------------------------------------------------------------');
                     reportUsageData('Word_AIGC', auto_launch_answer, is_vscode_installed);
                     if (auto_launch_answer) {
-                        // Continue with the operations
                         // Step 3: Provide user the command to side-load add-in directly 
                         console.log('Step [3/3]: Automatically launch add-in with Word...');
                         console.log('The process is expected to finish shortly, thank you for your patience...');
-                        // spinner.text = 'Processing...(installation of all dependencies may take a few minutes)';
-                        // spinner.start();
                         shell.cd('./Word-Add-in-AIGC');
                         shell.exec('npm set progress always');
                         let env = 'cmd.exe';
@@ -255,7 +283,10 @@ function exec_script_Word_AIGC() {
                         FreePortAlert();
                         console.log('Finished!');
                         console.log('--------------------------------------------------------------------------------------------------------');
-                        resolve(is_vscode_installed);
+                        rl.question('Press any key to exit...', (answer) => {
+                            rl.close();
+                            resolve(is_vscode_installed);
+                        });
                     }
                 });
             });

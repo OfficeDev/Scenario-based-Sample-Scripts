@@ -37,6 +37,9 @@ if ErrorLevel 1 (
     echo Sample scripts are not prepared, installing now...
     npm install -g office_addin_sample_scripts
     echo Sample scripts has been installed.
+    echo Restarting script after installed office_addin_sample_scripts...
+    start "" "%~0"
+    exit
 ) else (
     echo Sample scripts is already installed!
 )
