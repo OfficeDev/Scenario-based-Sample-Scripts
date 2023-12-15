@@ -254,7 +254,7 @@ function exec_script_Word_AIGC() {
                                             console.log('Issue fixed. Please try to run the sample command again.');
                                             console.log('--------------------------------------------------------------------------------------------------------');
                                             console.log('Hint: If the issue persists, please try to run the following commands manually:');
-                                            console.log('sudo chown -R 501:20 $(whoami) ~/.npm');
+                                            console.log('sudo chown -R 501:20 ~/.npm');
                                             const rl = readline.createInterface({
                                                 input: process.stdin,
                                                 output: process.stdout
