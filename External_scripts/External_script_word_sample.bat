@@ -1,5 +1,5 @@
 @echo off
-@REM setlocal enabledelayedexpansion
+setlocal enabledelayedexpansion
 
 where /q git
 if ErrorLevel 1 (
@@ -69,7 +69,7 @@ if errorlevel 1 (
     echo Word is installed.
 )
 
-setlocal enabledelayedexpansion
+@REM setlocal enabledelayedexpansion
 
 set foldername=Word_AIGC_sample
 set /a counter=0
