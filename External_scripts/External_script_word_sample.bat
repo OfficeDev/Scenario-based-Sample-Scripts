@@ -9,7 +9,7 @@ if ErrorLevel 1 (
     del git-installer.exe
     echo Git has been installed.
     echo Restarting script after installed git. The script will restart in 10 seconds...
-    powershell -Command "$Env:Path = [System.Environment]::GetEnvironmentVariable('Path','Machine')"
+    @REM powershell -Command "$Env:Path = [System.Environment]::GetEnvironmentVariable('Path','Machine')"
     timeout /t 10 /nobreak >nul
     @REM endlocal
     @REM setlocal enabledelayedexpansion
@@ -28,7 +28,7 @@ if ErrorLevel 1 (
     del node.msi
     echo Node.js has been installed.
     echo Restarting script after installed Node. The script will restart in 15 seconds...
-    powershell -Command "$Env:Path = [System.Environment]::GetEnvironmentVariable('Path','Machine')"
+    @REM powershell -Command "$Env:Path = [System.Environment]::GetEnvironmentVariable('Path','Machine')"
     timeout /t 15 /nobreak >nul
     @REM endlocal
     @REM setlocal enabledelayedexpansion
