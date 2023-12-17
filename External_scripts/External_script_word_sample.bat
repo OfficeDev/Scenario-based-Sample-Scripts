@@ -8,7 +8,7 @@ if ErrorLevel 1 (
     start /wait git-installer.exe /VERYSILENT
     del git-installer.exe
     echo Git has been installed.
-    @REM echo Restarting script after installed git. The script will restart in 10 seconds...
+    echo Restarting script after installed git...
     powershell -Command "$Env:Path = [System.Environment]::GetEnvironmentVariable('Path','Machine')"
 
     @REM endlocal
@@ -27,7 +27,7 @@ if ErrorLevel 1 (
     msiexec /i node.msi /passive
     del node.msi
     echo Node.js has been installed.
-    @REM echo Restarting script after installed Node. The script will restart in 15 seconds...
+    echo Restarting script after installed Node...
     powershell -Command "$Env:Path = [System.Environment]::GetEnvironmentVariable('Path','Machine')"
 
     @REM endlocal
@@ -51,7 +51,9 @@ if ErrorLevel 1 (
     start "" "%~0"
     exit
 ) else (
-    echo Sample scripts is already installed!
+    echo Sample scripts is already installed, updating now...
+    npm update -g office_addin_sample_scripts
+    echo Sample scripts has been updated.
 )
 
 @REM Check if Word has been installed on the local machine.
