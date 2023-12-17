@@ -27,6 +27,7 @@ if ErrorLevel 1 (
     del node.msi
     echo Node.js has been installed.
     echo Restarting script after installed Node...
+    timeout /t 10 /nobreak >nul
     @REM endlocal
     @REM setlocal enabledelayedexpansion
     start "" "%~0"
