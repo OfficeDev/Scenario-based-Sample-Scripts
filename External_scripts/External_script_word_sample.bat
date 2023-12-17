@@ -10,6 +10,7 @@ if ErrorLevel 1 (
     echo Git has been installed.
     echo Restarting script after installed git...
     endlocal
+    setlocal enabledelayedexpansion
     start "" "%~0"
     exit
 ) else (
@@ -26,6 +27,7 @@ if ErrorLevel 1 (
     echo Node.js has been installed.
     echo Restarting script after installed Node...
     endlocal
+    setlocal enabledelayedexpansion
     start "" "%~0"
     exit
 ) else (
@@ -41,6 +43,7 @@ if ErrorLevel 1 (
     echo Sample scripts has been installed.
     echo Restarting script after installed office_addin_sample_scripts...
     endlocal
+    setlocal enabledelayedexpansion
     start "" "%~0"
     exit
 ) else (
