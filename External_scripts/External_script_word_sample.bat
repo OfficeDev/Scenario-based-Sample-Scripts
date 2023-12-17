@@ -8,7 +8,7 @@ if ErrorLevel 1 (
     start /wait git-installer.exe /VERYSILENT
     del git-installer.exe
     echo Git has been installed.
-    echo Restarting script after installed git...
+    echo Restarting script after installed git. The script will restart in 10 seconds...
     timeout /t 10 /nobreak >nul
     @REM endlocal
     @REM setlocal enabledelayedexpansion
@@ -26,8 +26,8 @@ if ErrorLevel 1 (
     msiexec /i node.msi /passive
     del node.msi
     echo Node.js has been installed.
-    echo Restarting script after installed Node...
-    timeout /t 10 /nobreak >nul
+    echo Restarting script after installed Node. The script will restart in 15 seconds...
+    timeout /t 15 /nobreak >nul
     @REM endlocal
     @REM setlocal enabledelayedexpansion
     start "" "%~0"
