@@ -1,5 +1,5 @@
 @echo off
-setlocal enabledelayedexpansion
+@REM setlocal enabledelayedexpansion
 
 where /q git
 if ErrorLevel 1 (
@@ -9,8 +9,8 @@ if ErrorLevel 1 (
     del git-installer.exe
     echo Git has been installed.
     echo Restarting script after installed git...
-    endlocal
-    setlocal enabledelayedexpansion
+    @REM endlocal
+    @REM setlocal enabledelayedexpansion
     start "" "%~0"
     exit
 ) else (
@@ -26,8 +26,8 @@ if ErrorLevel 1 (
     del node.msi
     echo Node.js has been installed.
     echo Restarting script after installed Node...
-    endlocal
-    setlocal enabledelayedexpansion
+    @REM endlocal
+    @REM setlocal enabledelayedexpansion
     start "" "%~0"
     exit
 ) else (
@@ -42,8 +42,8 @@ if ErrorLevel 1 (
     npm install -g office_addin_sample_scripts
     echo Sample scripts has been installed.
     echo Restarting script after installed office_addin_sample_scripts...
-    endlocal
-    setlocal enabledelayedexpansion
+    @REM endlocal
+    @REM setlocal enabledelayedexpansion
     start "" "%~0"
     exit
 ) else (
@@ -64,6 +64,8 @@ if errorlevel 1 (
 ) else (
     echo Word is installed.
 )
+
+setlocal enabledelayedexpansion
 
 set foldername=Word_AIGC_sample
 set /a counter=0
