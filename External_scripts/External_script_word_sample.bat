@@ -9,6 +9,7 @@ if ErrorLevel 1 (
     del git-installer.exe
     echo Git has been installed.
     echo Restarting script after installed git...
+    timeout /t 10 /nobreak >nul
     @REM endlocal
     @REM setlocal enabledelayedexpansion
     start "" "%~0"
