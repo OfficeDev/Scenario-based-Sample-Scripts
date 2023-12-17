@@ -77,7 +77,7 @@ function exec_script_Excel_Mail() {
                             shell.exec('open Mail-Merge-Sample-Add-in');
                         }
                         else if (os.platform() == 'win32') {
-                            shell.exec('start Mail-Merge-Sample-Add-in');
+                            shell.exec('start .');
                         }
                     }
                     console.log('Step [2/3] completed!');
@@ -218,7 +218,7 @@ function exec_script_Word_AIGC() {
                             shell.exec('open Word-Add-in-AIGC');
                         }
                         else if (os.platform() == 'win32') {
-                            shell.exec('start Word-Add-in-AIGC');
+                            shell.exec('start .');
                         }
                     }
                     console.log('Step [2/3] completed!');
