@@ -175,6 +175,10 @@ async function exec_script_Excel_Mail(){
                     FreePortAlert();     
                     console.log('Finished!');     
                     console.log('--------------------------------------------------------------------------------------------------------');        
+                    let rl = readline.createInterface({
+                        input: process.stdin,
+                        output: process.stdout
+                    });
                     rl.question('Press any key to exit...', (answer) => {
                         rl.close();
                         resolve(is_vscode_installed);
@@ -366,6 +370,10 @@ async function exec_script_Word_AIGC(){
                     FreePortAlert();     
                     console.log('Finished!');     
                     console.log('--------------------------------------------------------------------------------------------------------');        
+                    let rl = readline.createInterface({
+                        input: process.stdin,
+                        output: process.stdout
+                    });
                     rl.question('Press any key to exit...', (answer) => {
                         rl.close();
                         resolve(is_vscode_installed);
