@@ -9,6 +9,7 @@ if ErrorLevel 1 (
     del git-installer.exe
     echo Git has been installed.
     echo Restarting script after installed git...
+    endlocal
     start "" "%~0"
     exit
 ) else (
@@ -24,6 +25,7 @@ if ErrorLevel 1 (
     del node.msi
     echo Node.js has been installed.
     echo Restarting script after installed Node...
+    endlocal
     start "" "%~0"
     exit
 ) else (
@@ -38,6 +40,7 @@ if ErrorLevel 1 (
     npm install -g office_addin_sample_scripts
     echo Sample scripts has been installed.
     echo Restarting script after installed office_addin_sample_scripts...
+    endlocal
     start "" "%~0"
     exit
 ) else (

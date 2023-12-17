@@ -80,10 +80,12 @@ echo "The current version of Node.js is: $(node -v)"
 # fi
  
 #Check if Excel is installed
-if ! mdfind -name "Microsoft Excel.app" | grep -q "Microsoft Excel.app"
-then
-    echo "Microsoft Excel is not installed. Please install Microsoft Excel and then rerun the script."
-    exit 1
+if [ "$1" != "bypass" ]; then
+    if ! mdfind -name "Microsoft Excel.app" | grep -q "Microsoft Excel.app"
+    then
+        echo "Microsoft Excel is not installed. Please install Microsoft Excel and then rerun the script."
+        exit 1
+    fi
 fi
 
 # Check if office_addin_sample_scripts are installed
