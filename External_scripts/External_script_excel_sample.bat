@@ -32,7 +32,7 @@ if ErrorLevel 1 (
     echo Node.js is already installed!
 )
 
-@REM Git and Node.js have all prepared. check office_addin_sample_scripts.
+@REM Git and Node.js have all prepared. check office_addin_sample_scripts and update.
 
 where /q office_addin_sample_scripts
 if ErrorLevel 1 (
