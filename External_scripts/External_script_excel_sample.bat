@@ -46,23 +46,11 @@ if ErrorLevel 1 (
     if "%~1"=="noupdate" (
         echo Sample scripts is already installed and skip update.
     ) else (
-        REM Get the latest version of the package
-        for /f "delims=" %%i in ('npm show office_addin_sample_scripts version') do set "latestVersion=%%i"
-
-        REM Get the installed version of the package
-        for /f "tokens=2 delims=@" %%i in ('npm list -g office_addin_sample_scripts') do set "installedVersion=%%i"
-
-        echo Latest version: %latestVersion%
-        echo Installed version: %installedVersion%
-
-        REM If the installed version is not the latest, update the package
-        if not "%installedVersion%"=="%latestVersion%" (
-            echo Updating office_addin_sample_scripts...
-            npm install -g office_addin_sample_scripts@latest
-            echo Update complete. Restarting script...
-        ) else (
-            echo office_addin_sample_scripts is up to date.
-        )
+        echo Updating office_addin_sample_scripts...
+        npm install -g office_addin_sample_scripts@latest
+        echo Update complete. Restarting script...
+        start "" "%~0"
+        exit   
     )
 )
 
