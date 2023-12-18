@@ -46,9 +46,11 @@ if ErrorLevel 1 (
     if "%~1"=="noupdate" (
         echo Sample scripts is already installed and skip update.
     ) else (
-        echo Sample scripts is already installed, updating now...
-        npm update -g office_addin_sample_scripts
-        echo Sample scripts has been updated.
+        echo Updating office_addin_sample_scripts...
+        npm install -g office_addin_sample_scripts@latest
+        echo Update complete. Restarting script...
+        start "" "%~0"
+        exit   
     )
 )
 
