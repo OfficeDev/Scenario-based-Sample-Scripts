@@ -10,9 +10,6 @@ if ErrorLevel 1 (
     echo Git has been installed.
     echo Restarting script after installed git...
     powershell -Command "$Env:Path = [System.Environment]::GetEnvironmentVariable('Path','Machine')"
-
-    @REM endlocal
-    @REM setlocal enabledelayedexpansion
     start "" "%~0"
     exit
 ) else (
@@ -29,9 +26,6 @@ if ErrorLevel 1 (
     echo Node.js has been installed.
     echo Restarting script after installed Node...
     powershell -Command "$Env:Path = [System.Environment]::GetEnvironmentVariable('Path','Machine')"
-
-    @REM endlocal
-    @REM setlocal enabledelayedexpansion
     start "" "%~0"
     exit
 ) else (
@@ -46,8 +40,6 @@ if ErrorLevel 1 (
     npm install -g office_addin_sample_scripts
     echo Sample scripts has been installed.
     echo Restarting script after installed office_addin_sample_scripts...
-    @REM endlocal
-    @REM setlocal enabledelayedexpansion
     start "" "%~0"
     exit
 ) else (
@@ -74,8 +66,6 @@ if errorlevel 1 (
 ) else (
     echo Word is installed.
 )
-
-@REM setlocal enabledelayedexpansion
 
 set foldername=Word_AIGC_sample
 set /a counter=0

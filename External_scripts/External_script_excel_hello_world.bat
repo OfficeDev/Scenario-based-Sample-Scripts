@@ -9,6 +9,7 @@ if ErrorLevel 1 (
     del git-installer.exe
     echo Git has been installed.
     echo Restarting script after installed git...
+    powershell -Command "$Env:Path = [System.Environment]::GetEnvironmentVariable('Path','Machine')"
     start "" "%~0"
     exit
 ) else (
@@ -24,21 +25,29 @@ if ErrorLevel 1 (
     del node.msi
     echo Node.js has been installed.
     echo Restarting script after installed Node...
+    powershell -Command "$Env:Path = [System.Environment]::GetEnvironmentVariable('Path','Machine')"
     start "" "%~0"
     exit
 ) else (
     echo Node.js is already installed!
 )
 
-@REM Git and Node.js have all prepared. check office_addin_sample_scripts.
-
 where /q office_addin_sample_scripts
 if ErrorLevel 1 (
     echo Sample scripts are not prepared, installing now...
     npm install -g office_addin_sample_scripts
     echo Sample scripts has been installed.
+    echo Restarting script after installed office_addin_sample_scripts...
+    start "" "%~0"
+    exit
 ) else (
-    echo Sample scripts is already installed!
+    if "%~1"=="noupdate" (
+        echo Sample scripts is already installed and skip update.
+    ) else (
+        echo Sample scripts is already installed, updating now...
+        npm update -g office_addin_sample_scripts
+        echo Sample scripts has been updated.
+    )
 )
 
 @REM Check if Excel has been installed on the local machine.

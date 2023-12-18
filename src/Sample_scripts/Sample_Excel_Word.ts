@@ -6,6 +6,7 @@ import { spawn, exec, execSync } from 'child_process';
 import * as readline from 'readline';
 import open from 'open';
 import * as usageData from 'office-addin-usage-data';
+import { Writable } from 'stream';
 
 import * as os from 'os';
 import * as fs from 'fs';
@@ -56,15 +57,23 @@ async function exec_script_Excel_Mail(){
             console.log('--------------------------------------------------------------------------------------------------------');
     
             // Ask user if sample Add-in automatic launch is needed
+            let originalWrite = process.stdout.write;
+            let silentStream = new Writable({
+                write(chunk, encoding, callback) {
+                    callback();
+                }
+            });
+
             let rl = readline.createInterface({
                 input: process.stdin,
-                output: process.stdout
+                output: silentStream
             });
 
             let auto_launch_answer = false;
 
+            console.log('Proceed to launch Office with the sample add-in? (Y/N)');
+            rl.question('', (answer) => {
 
-            rl.question('Proceed to launch Office with the sample add-in? (Y/N)\n', (answer) => {
                 if (answer.trim().toLowerCase() == 'y') {
                     auto_launch_answer = true;
                 }
@@ -209,99 +218,142 @@ async function exec_script_Word_AIGC(){
             replaceUrl('https://pnptelemetry.azurewebsites.net/pnp-officeaddins/samples/word-add-in-aigc-localhost', 'https://pnptelemetry.azurewebsites.net/pnp-officeaddins/samples/word-add-in-aigc-script', './Word-Scenario-based-Add-in-Samples/Word-Add-in-AIGC/src/taskpane/taskpane.html')
                 .then(() => {
                     shell.cd('./Word-Scenario-based-Add-in-Samples/Word-Add-in-AIGC');
-                })
-                .catch((err) => {
-                    console.error(err);
-                });
-            // shell.cd('./Word-Scenario-based-Add-in-Samples/Word-Add-in-AIGC');
-            // shell.exec('git sparse-checkout set Mail-Merge-Sample-Add-in/', {async:true}, (code, stdout, stderr) => {
-            
+                    spinner.stop(true);
 
-            spinner.stop(true);
-            readline.clearLine(process.stdout, 0);
-            readline.cursorTo(process.stdout, 0);
+                    //Stop the spinner and clear the console
+                    readline.clearLine(process.stdout, 0);
+                    readline.cursorTo(process.stdout, 0);
 
-            // Step 2: Check if VSCode is installed
-            console.log('Step [1/3] completed!');
-            console.log('--------------------------------------------------------------------------------------------------------');
-              // Ask user if sample Add-in automatic launch is needed
-            let rl = readline.createInterface({
-                input: process.stdin,
-                output: process.stdout
-            });
+                    // Step 2: Check if VSCode is installed
+                    console.log('Step [1/3] completed!');
+                    console.log('--------------------------------------------------------------------------------------------------------');
 
-            let auto_launch_answer = false;
-
-
-            rl.question('Proceed to launch Office with the sample add-in? (Y/N)\n', (answer) => {
-                if (answer.trim().toLowerCase() == 'y') {
-                    auto_launch_answer = true;
-                }
-
-                rl.close();
-
-                // Step 2: Check if VSCode is installed
-                console.log('Step [2/3]: Checking if Visual Studio Code is installed...');
-                if (shell.which('code')) {
-                    console.log('Visual Studio Code is installed on your machine. Ready to launch for code exploration.');
-                    is_vscode_installed = true;
-                    shell.exec('code -n . ./README.md');
-                } else {
-                    console.log('Visual Studio Code is not installed on your machine.');
-                    if (os.platform() == 'darwin') {
-                        shell.exec('open Word-Add-in-AIGC');
-                    }
-                    else if (os.platform() == 'win32') {
-                        shell.exec('start .');
-                    }
-                }
-
-                console.log('Step [2/3] completed!');
-                console.log('--------------------------------------------------------------------------------------------------------');
-                reportUsageData('Word_AIGC', auto_launch_answer, is_vscode_installed);
-
-                if (auto_launch_answer) {
-                    // Step 3: Provide user the command to side-load add-in directly 
-                    console.log('Step [3/3]: Automatically launch add-in with Word...');
-                    console.log('The process is expected to finish shortly, thank you for your patience...');
-
-                    shell.cd('./Word-Add-in-AIGC');
-                    shell.exec('npm set progress always');
-
-                    let env = 'cmd.exe';
-                    let para = '/c';
-                    if (os.platform() == 'darwin') {
-                        env = 'sh';
-                        para = '-c';
-                    }
-
-                    const install = spawn(env, [para, 'npm install --loglevel verbose']);
-                    install.stdout.on('data', (data) => {
-                        process.stdout.write(data);
+                    let originalWrite = process.stdout.write;
+                    let silentStream = new Writable({
+                        write(chunk, encoding, callback) {
+                            callback();
+                        }
                     });
-                
-                    install.stderr.on('data', (data) => {
-                        process.stderr.write(data);
-                    });
-                    install.on('close', (code) => {
-                        if (code !== 0) {
-                            console.log(`Err: npm install process exited with code ${code}`);
 
-                            // Error handling on mac
+                    let rl = readline.createInterface({
+                        input: process.stdin,
+                        output: silentStream
+                    });
+
+                    let auto_launch_answer = false;
+
+                    console.log('Proceed to launch Office with the sample add-in? (Y/N)');
+                    rl.question('', (answer) => {
+                        
+                        if (answer.trim().toLowerCase() == 'y') {
+                            auto_launch_answer = true;
+                        }
+
+                        rl.close();
+
+                        // Step 2: Check if VSCode is installed
+                        console.log('Step [2/3]: Checking if Visual Studio Code is installed...');
+                        if (shell.which('code')) {
+                            console.log('Visual Studio Code is installed on your machine. Ready to launch for code exploration.');
+                            is_vscode_installed = true;
+                            shell.exec('code -n . ./README.md');
+                        } else {
+                            console.log('Visual Studio Code is not installed on your machine.');
                             if (os.platform() == 'darwin') {
-                                // if npm install failed because of access issue on mac
-                                if (code == 243) {
-                                    console.log('Mac access issue detected. Trying to automatically fix the issue...');
+                                shell.exec('open Word-Add-in-AIGC');
+                            }
+                            else if (os.platform() == 'win32') {
+                                shell.exec('start .');
+                            }
+                        }
 
-                                    shell.exec('sudo chown -R 501:20 $(whoami) ~/.npm', {async:true}, (code, stdout, stderr) => {
-                                        if (code !== 0) {
-                                            console.log(`Err: sudo chown process exited with code ${code}`);
+                        console.log('Step [2/3] completed!');
+                        console.log('--------------------------------------------------------------------------------------------------------');
+                        reportUsageData('Word_AIGC', auto_launch_answer, is_vscode_installed);
+
+                        if (auto_launch_answer) {
+                            // Step 3: Provide user the command to side-load add-in directly 
+                            console.log('Step [3/3]: Automatically launch add-in with Word...');
+                            console.log('The process is expected to finish shortly, thank you for your patience...');
+
+                            shell.cd('./Word-Add-in-AIGC');
+                            shell.exec('npm set progress always');
+
+                            let env = 'cmd.exe';
+                            let para = '/c';
+                            if (os.platform() == 'darwin') {
+                                env = 'sh';
+                                para = '-c';
+                            }
+
+                            const install = spawn(env, [para, 'npm install --loglevel verbose']);
+                            install.stdout.on('data', (data) => {
+                                process.stdout.write(data);
+                            });
+                        
+                            install.stderr.on('data', (data) => {
+                                process.stderr.write(data);
+                            });
+                            install.on('close', (code) => {
+                                if (code !== 0) {
+                                    console.log(`Err: npm install process exited with code ${code}`);
+
+                                    // Error handling on mac
+                                    if (os.platform() == 'darwin') {
+                                        // if npm install failed because of access issue on mac
+                                        if (code == 243) {
+                                            console.log('Mac access issue detected. Trying to automatically fix the issue...');
+
+                                            shell.exec('sudo chown -R 501:20 $(whoami) ~/.npm', {async:true}, (code, stdout, stderr) => {
+                                                if (code !== 0) {
+                                                    console.log(`Err: sudo chown process exited with code ${code}`);
+                                                }
+                                                console.log('Issue fixed. Please try to run the sample command again.');
+                                                console.log('--------------------------------------------------------------------------------------------------------');
+                                                console.log('Hint: If the issue persists, please try to run the following commands manually:');
+                                                console.log('sudo chown -R 501:20 ~/.npm');
+
+                                                const rl = readline.createInterface({
+                                                    input: process.stdin,
+                                                    output: process.stdout
+                                                });
+                                            
+                                                rl.question('Press any key to exit...', (answer) => {
+                                                    rl.close();
+                                                    resolve(is_vscode_installed);
+                                                });
+                                            });
                                         }
-                                        console.log('Issue fixed. Please try to run the sample command again.');
-                                        console.log('--------------------------------------------------------------------------------------------------------');
-                                        console.log('Hint: If the issue persists, please try to run the following commands manually:');
-                                        console.log('sudo chown -R 501:20 ~/.npm');
+                                    }
+                                }
+                                else {
 
+                                    // if npm install succeeded
+                                    const start = spawn(env, [para, 'npm run start']);
+
+                                    start.stdout.on('data', (data) => {
+                                        console.log(`${data}`);
+                                    });
+                                
+                                    start.stderr.on('data', (data) => {
+                                        console.error(`stderr: ${data}`);
+                                    });
+                                
+                                    start.on('close', (code) => {
+                                        if (code !== 0) {
+                                            console.log(`npm run start process exited with code ${code}`);
+                                        }
+                                
+                                        spinner.stop(true);
+                                        readline.clearLine(process.stdout, 0);
+                                        readline.cursorTo(process.stdout, 0);
+                                
+                                        console.log('Step [3/3] completed!');
+                                        console.log('--------------------------------------------------------------------------------------------------------');
+                                        FreePortAlert();
+                                        console.log('Finished!');
+                                        console.log('--------------------------------------------------------------------------------------------------------');
+                                
                                         const rl = readline.createInterface({
                                             input: process.stdin,
                                             output: process.stdout
@@ -312,75 +364,60 @@ async function exec_script_Word_AIGC(){
                                             resolve(is_vscode_installed);
                                         });
                                     });
-                                }
-                            }
+
+                                    // Make sure npm run start process will not be blocked by the prompt
+                                    start.stdin.write('n\n');
+                                    }
+                            });
                         }
-                        else {
-
-                            // if npm install succeeded
-                            const start = spawn(env, [para, 'npm run start']);
-
-                            start.stdout.on('data', (data) => {
-                                console.log(`${data}`);
+                        else{
+                            // Don't continue with the operations
+                            console.log('Step [3/3] skipped. Auto-launch for the sample has been excluded based on your choice.')
+                            console.log('And you can initiate the sample add-in by executing the following commands:');
+                            console.log('--------------------------------------------------------------------------------------------------------');
+                            console.log('npm install');
+                            console.log('npm run start');
+                            console.log('--------------------------------------------------------------------------------------------------------');
+                            FreePortAlert();     
+                            console.log('Finished!');     
+                            console.log('--------------------------------------------------------------------------------------------------------');        
+                            let rl = readline.createInterface({
+                                input: process.stdin,
+                                output: process.stdout
                             });
-                        
-                            start.stderr.on('data', (data) => {
-                                console.error(`stderr: ${data}`);
+                            rl.question('Press any key to exit...', (answer) => {
+                                rl.close();
+                                resolve(is_vscode_installed);
                             });
-                        
-                            start.on('close', (code) => {
-                                if (code !== 0) {
-                                    console.log(`npm run start process exited with code ${code}`);
-                                }
-                        
-                                spinner.stop(true);
-                                readline.clearLine(process.stdout, 0);
-                                readline.cursorTo(process.stdout, 0);
-                        
-                                console.log('Step [3/3] completed!');
-                                console.log('--------------------------------------------------------------------------------------------------------');
-                                FreePortAlert();
-                                console.log('Finished!');
-                                console.log('--------------------------------------------------------------------------------------------------------');
-                        
-                                const rl = readline.createInterface({
-                                    input: process.stdin,
-                                    output: process.stdout
-                                });
-                            
-                                rl.question('Press any key to exit...', (answer) => {
-                                    rl.close();
-                                    resolve(is_vscode_installed);
-                                });
-                            });
-
-                            // Make sure npm run start process will not be blocked by the prompt
-                            start.stdin.write('n\n');
-                            }
+                        }
                     });
-                }
-                else{
-                    // Don't continue with the operations
-                    console.log('Step [3/3] skipped. Auto-launch for the sample has been excluded based on your choice.')
-                    console.log('And you can initiate the sample add-in by executing the following commands:');
+                })
+                .catch((err) => {
+                    //Stop the spinner and clear the console
+                    spinner.stop(true);
+                    readline.clearLine(process.stdout, 0);
+                    readline.cursorTo(process.stdout, 0);
+
+                    console.error(err);
+                    console.log('Error occurred when downloading the code. This may be caused by the network issue. Please rerun the command to try again.')
                     console.log('--------------------------------------------------------------------------------------------------------');
-                    console.log('npm install');
-                    console.log('npm run start');
-                    console.log('--------------------------------------------------------------------------------------------------------');
-                    FreePortAlert();     
-                    console.log('Finished!');     
-                    console.log('--------------------------------------------------------------------------------------------------------');        
+
                     let rl = readline.createInterface({
                         input: process.stdin,
                         output: process.stdout
                     });
+                
                     rl.question('Press any key to exit...', (answer) => {
                         rl.close();
-                        resolve(is_vscode_installed);
+                        reject(err);
                     });
-                }
-            });
-          });
+                });
+            // shell.cd('./Word-Scenario-based-Add-in-Samples/Word-Add-in-AIGC');
+            // shell.exec('git sparse-checkout set Mail-Merge-Sample-Add-in/', {async:true}, (code, stdout, stderr) => {
+            
+
+            
+          });//
       });
 }
 
@@ -604,6 +641,7 @@ function replaceUrl(url: string, newUrl: string, filePath: string) {
         fs.readFile(filePath, 'utf8', (err, data) => {
             if (err) {
                 console.error(err);
+                reject(err);
                 return;
             }
 
@@ -612,6 +650,7 @@ function replaceUrl(url: string, newUrl: string, filePath: string) {
             fs.writeFile(filePath, result, 'utf8', (err) => {
                 if (err) {
                     console.error(err);
+                    reject(err);
                     return;
                 }
                 resolve(true);

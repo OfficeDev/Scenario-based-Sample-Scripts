@@ -40,14 +40,16 @@ if ErrorLevel 1 (
     npm install -g office_addin_sample_scripts
     echo Sample scripts has been installed.
     echo Restarting script after installed office_addin_sample_scripts...
-    @REM endlocal
-    @REM setlocal enabledelayedexpansion
     start "" "%~0"
     exit
 ) else (
-    echo Sample scripts is already installed, updating now...
-    npm update -g office_addin_sample_scripts
-    echo Sample scripts has been updated.
+    if "%~1"=="noupdate" (
+        echo Sample scripts is already installed and skip update.
+    ) else (
+        echo Sample scripts is already installed, updating now...
+        npm update -g office_addin_sample_scripts
+        echo Sample scripts has been updated.
+    )
 )
 
 @REM Check if Excel has been installed on the local machine.
