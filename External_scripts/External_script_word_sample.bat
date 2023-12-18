@@ -51,12 +51,12 @@ if ErrorLevel 1 (
     start "" "%~0"
     exit
 ) else (
-    if "%~1"=="update" (
+    if "%~1"=="noupdate" (
+        echo Sample scripts is already installed and skip update.
+    ) else (
         echo Sample scripts is already installed, updating now...
         npm update -g office_addin_sample_scripts
         echo Sample scripts has been updated.
-    ) else (
-        echo Sample scripts is already installed and skip update.
     )
 )
 
