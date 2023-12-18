@@ -95,6 +95,8 @@ if [ "$1" != "bypass" ]; then
     if ! find /Applications -name "Microsoft Word.app" 2>/dev/null | grep -q "Microsoft Word.app"
     then
         echo "Microsoft Word is not installed. Please install Microsoft Word and then rerun the script."
+        echo "If you make sure the application is installed, please run the script with "bypass":"
+        echo "bash <(curl -L -s aka.ms/wordaddin/aigc_mac) bypass"
         exit 1
     fi
 fi
