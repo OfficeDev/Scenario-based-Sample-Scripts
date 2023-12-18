@@ -92,7 +92,7 @@ fi
 
 #Check if Word is installed
 if [ "$1" != "bypass" ]; then
-    if ! mdfind -name "Microsoft Word.app" | grep -q "Microsoft Word.app"
+    if ! find / -name "Microsoft Word.app" 2>/dev/null | grep -q "Microsoft Word.app"
     then
         echo "Microsoft Word is not installed. Please install Microsoft Word and then rerun the script."
         exit 1
