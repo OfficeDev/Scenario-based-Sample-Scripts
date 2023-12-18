@@ -49,7 +49,7 @@ if ErrorLevel 1 (
         echo Updating office_addin_sample_scripts...
         npm install -g office_addin_sample_scripts@latest
         echo Update complete. Restarting script...
-        start "" "%~0"
+        start "" "%~0" %noupdate
         exit   
     )
 )
