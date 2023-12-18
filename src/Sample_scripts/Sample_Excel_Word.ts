@@ -44,6 +44,8 @@ async function exec_script_Excel_Mail(){
                 .then(() => {
                     shell.cd('./Excel-Scenario-based-Add-in-Samples/Mail-Merge-Sample-Add-in');
                     spinner.stop(true);
+
+                    //Stop the spinner and clear the console
                     readline.clearLine(process.stdout, 0);
                     readline.cursorTo(process.stdout, 0);
 
@@ -83,7 +85,7 @@ async function exec_script_Excel_Mail(){
                         } else {
                             console.log('Visual Studio Code is not installed on your machine.');
                             if (os.platform() == 'darwin') {
-                                shell.exec('open Mail-Merge-Sample-Add-in');
+                                shell.exec('open .');
                             }
                             else if (os.platform() == 'win32') {
                                 shell.exec('start .');
@@ -123,48 +125,72 @@ async function exec_script_Excel_Mail(){
 
                                     // Error handling on mac
                                     if (os.platform() == 'darwin') {
-                                        
+                                        // if npm install failed because of access issue on mac
+                                        if (code == 243) {
+                                            console.log('Mac access issue detected. Trying to automatically fix the issue...');
+
+                                            shell.exec('sudo chown -R 501:20 $(whoami) ~/.npm', {async:true}, (code, stdout, stderr) => {
+                                                if (code !== 0) {
+                                                    console.log(`Err: sudo chown process exited with code ${code}`);
+                                                }
+                                                console.log('Issue fixed. Please try to run the sample command again.');
+                                                console.log('--------------------------------------------------------------------------------------------------------');
+                                                console.log('Hint: If the issue persists, please try to run the following commands manually:');
+                                                console.log('sudo chown -R 501:20 ~/.npm');
+
+                                                const rl = readline.createInterface({
+                                                    input: process.stdin,
+                                                    output: process.stdout
+                                                });
+                                            
+                                                rl.question('Press any key to exit...', (answer) => {
+                                                    rl.close();
+                                                    resolve(is_vscode_installed);
+                                                });
+                                            });
+                                        }
                                     }
                                 }
+                                else {
+                                    const start = spawn(env, [para, 'npm run start']);
 
-                                const start = spawn(env, [para, 'npm run start']);
-
-                                start.stdout.on('data', (data) => {
-                                    console.log(`${data}`);
-                                });
-                            
-                                start.stderr.on('data', (data) => {
-                                    console.error(`stderr: ${data}`);
-                                });
-                            
-                                start.on('close', (code) => {
-                                    if (code !== 0) {
-                                        console.log(`npm run start process exited with code ${code}`);
-                                    }
-                            
-                                    spinner.stop(true);
-                                    readline.clearLine(process.stdout, 0);
-                                    readline.cursorTo(process.stdout, 0);
-                            
-                                    console.log('Step [3/3] completed!');
-                                    console.log('--------------------------------------------------------------------------------------------------------');
-                                    FreePortAlert();
-                                    console.log('Finished!');
-                                    console.log('--------------------------------------------------------------------------------------------------------');
-                            
-                                    const rl = readline.createInterface({
-                                        input: process.stdin,
-                                        output: process.stdout
+                                    start.stdout.on('data', (data) => {
+                                        console.log(`${data}`);
                                     });
                                 
-                                    rl.question('Press any key to exit...', (answer) => {
-                                        rl.close();
-                                        resolve(is_vscode_installed);
+                                    start.stderr.on('data', (data) => {
+                                        console.error(`stderr: ${data}`);
                                     });
-                                });
+                                
+                                    start.on('close', (code) => {
+                                        if (code !== 0) {
+                                            console.log(`npm run start process exited with code ${code}`);
+                                        }
+                                
+                                        spinner.stop(true);
+                                        readline.clearLine(process.stdout, 0);
+                                        readline.cursorTo(process.stdout, 0);
+                                
+                                        console.log('Step [3/3] completed!');
+                                        console.log('--------------------------------------------------------------------------------------------------------');
+                                        FreePortAlert();
+                                        console.log('Finished!');
+                                        console.log('--------------------------------------------------------------------------------------------------------');
+                                
+                                        const rl = readline.createInterface({
+                                            input: process.stdin,
+                                            output: process.stdout
+                                        });
+                                    
+                                        rl.question('Press any key to exit...', (answer) => {
+                                            rl.close();
+                                            resolve(is_vscode_installed);
+                                        });
+                                    });
 
-                                // Make sure npm run start process will not be blocked by the prompt
-                                start.stdin.write('n\n');
+                                    // Make sure npm run start process will not be blocked by the prompt
+                                    start.stdin.write('n\n');
+                                    }
                             });
                         }
                         else{
@@ -275,7 +301,8 @@ async function exec_script_Word_AIGC(){
                         } else {
                             console.log('Visual Studio Code is not installed on your machine.');
                             if (os.platform() == 'darwin') {
-                                shell.exec('open Word-Add-in-AIGC');
+                                console.log(process.cwd());
+                                shell.exec('open .');
                             }
                             else if (os.platform() == 'win32') {
                                 shell.exec('start .');

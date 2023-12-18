@@ -4,6 +4,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const yargs = require("yargs");
 const fs = require("fs");
 const readline = require("readline");
+const os = require("os");
 const { exec_script_Excel_Mail, exec_script_Word_AIGC, exec_script_Excel_Hello_World, exec_script_Word_Hello_World } = require('./Sample_scripts/Sample_Excel_Word');
 function exec_script() {
     yargs
@@ -29,7 +30,12 @@ function exec_script() {
                 return;
             }
             //Log the current working directory
-            console.log("Create sample folder successfully. The current working directory is: " + currentWorkingDirectory + "\\" + argv.sampleFolder);
+            if (os.platform() == 'win32') {
+                console.log("Create sample folder successfully. The current working directory is: " + currentWorkingDirectory + "\\" + argv.sampleFolder);
+            }
+            else if (os.platform() == 'darwin') {
+                console.log("Create sample folder successfully. The current working directory is: " + currentWorkingDirectory + "/" + argv.sampleFolder);
+            }
             //switch to the sample folder
             process.chdir(argv.sampleFolder);
         }
