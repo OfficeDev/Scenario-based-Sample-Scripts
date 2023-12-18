@@ -78,7 +78,18 @@ echo "The current version of Node.js is: $(node -v)"
 #     echo "npm version is not in the correct range, reinstalling npm to version 9..."
 #     npm install -g npm@9
 # fi
- 
+
+# Check if office_addin_sample_scripts are installed
+if ! npm list -g --depth=0 | grep office_addin_sample_scripts &> /dev/null
+then
+    echo "office_addin_sample_scripts is not installed, installing now..."
+    sudo npm install -g office_addin_sample_scripts
+else
+    echo "office_addin_sample_scripts has already been installed. Updating to the latest version..."
+    sudo npm update -g office_addin_sample_scripts
+    echo "office_addin_sample_scripts has been updated to the latest version!"
+fi
+
 #Check if Excel is installed
 echo "Checking if Excel is installed..."
 if [ "$1" != "bypass" ]; then
@@ -91,15 +102,6 @@ if [ "$1" != "bypass" ]; then
     fi
 fi
 
-# Check if office_addin_sample_scripts are installed
-if ! npm list -g --depth=0 | grep office_addin_sample_scripts &> /dev/null
-then
-    echo "office_addin_sample_scripts is not installed, installing now..."
-    sudo npm install -g office_addin_sample_scripts
-else
-    echo "office_addin_sample_scripts has already been installed."
-fi
- 
 # Now Office add-in sample scripts have been installed. Create a sample project.
 foldername="Office_sample_Excel_Mail"
 counter=0
