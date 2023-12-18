@@ -80,10 +80,13 @@ echo "The current version of Node.js is: $(node -v)"
 # fi
  
 #Check if Excel is installed
+echo "Checking if Excel is installed..."
 if [ "$1" != "bypass" ]; then
-    if ! mdfind -name "Microsoft Excel.app" | grep -q "Microsoft Excel.app"
+    if ! find /Applications -name "Microsoft Excel.app" 2>/dev/null | grep -q "Microsoft Excel.app"
     then
         echo "Microsoft Excel is not installed. Please install Microsoft Excel and then rerun the script."
+        echo "If you make sure the application is installed, please run the script with "bypass":"
+        echo "bash <(curl -L -s aka.ms/exceladdin/mail_mac) bypass"
         exit 1
     fi
 fi

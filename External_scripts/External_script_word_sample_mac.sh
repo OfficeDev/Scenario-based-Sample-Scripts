@@ -91,6 +91,7 @@ else
 fi
 
 #Check if Word is installed
+echo "Checking if Word is installed..."
 if [ "$1" != "bypass" ]; then
     if ! find /Applications -name "Microsoft Word.app" 2>/dev/null | grep -q "Microsoft Word.app"
     then
