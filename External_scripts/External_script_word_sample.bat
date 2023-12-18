@@ -51,9 +51,13 @@ if ErrorLevel 1 (
     start "" "%~0"
     exit
 ) else (
-    echo Sample scripts is already installed, updating now...
-    npm update -g office_addin_sample_scripts
-    echo Sample scripts has been updated.
+    if "%~1"=="update" (
+        echo Sample scripts is already installed, updating now...
+        npm update -g office_addin_sample_scripts
+        echo Sample scripts has been updated.
+    ) else (
+        echo Sample scripts is already installed and skip update.
+    )
 )
 
 @REM Check if Word has been installed on the local machine.
