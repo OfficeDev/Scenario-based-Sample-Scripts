@@ -114,7 +114,7 @@ function exec_script_Excel_Mail() {
                                         // if npm install failed because of access issue on mac
                                         if (code == 243) {
                                             console.log('Mac access issue detected. Trying to automatically fix the issue...');
-                                            shell.exec('sudo chown -R 501:20 $(whoami) ~/.npm', { async: true }, (code, stdout, stderr) => {
+                                            shell.exec('sudo chown -R 501:20 ~/.npm', { async: true }, (code, stdout, stderr) => {
                                                 if (code !== 0) {
                                                     console.log(`Err: sudo chown process exited with code ${code}`);
                                                 }
@@ -298,7 +298,7 @@ function exec_script_Word_AIGC() {
                                         // if npm install failed because of access issue on mac
                                         if (code == 243) {
                                             console.log('Mac access issue detected. Trying to automatically fix the issue...');
-                                            shell.exec('sudo chown -R 501:20 $(whoami) ~/.npm', { async: true }, (code, stdout, stderr) => {
+                                            shell.exec('sudo chown -R 501:20 ~/.npm', { async: true }, (code, stdout, stderr) => {
                                                 if (code !== 0) {
                                                     console.log(`Err: sudo chown process exited with code ${code}`);
                                                 }
@@ -632,25 +632,6 @@ function FreePortAlert() {
         console.log('npm run start');
         console.log('--------------------------------------------------------------------------------------------------------');
     }
-}
-function installDependencies() {
-    const npmInstall = (0, child_process_1.spawn)('npm', ['install']);
-    npmInstall.stdout.on('data', (data) => {
-        process.stdout.write(data);
-    });
-    npmInstall.stderr.on('data', (data) => {
-        process.stderr.write(data);
-    });
-    npmInstall.on('close', (code) => {
-        if (code !== 0) {
-            console.log(`npm install process exited with code ${code}`);
-        }
-        else {
-            console.log('Dependencies installed successfully');
-        }
-    });
-}
-function launchAddinAndExit() {
 }
 module.exports = { exec_script_Excel_Mail, exec_script_Word_AIGC, exec_script_Excel_Hello_World, exec_script_Word_Hello_World };
 //# sourceMappingURL=Sample_Excel_Word.js.map
