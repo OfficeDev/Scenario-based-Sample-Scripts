@@ -40,7 +40,7 @@ if ErrorLevel 1 (
     npm install -g office_addin_sample_scripts
     echo Sample scripts has been installed.
     echo Restarting script after installed office_addin_sample_scripts...
-    start "" "%~0"
+    start "" "%~0" noupdate
     exit
 ) else (
     if "%~1"=="noupdate" (
