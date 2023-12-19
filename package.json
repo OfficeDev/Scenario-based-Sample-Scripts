@@ -1,6 +1,6 @@
 {
   "name": "office_addin_sample_scripts",
-  "version": "1.0.31",
+  "version": "1.0.32",
   "description": "This package would provide user some scripts to automatically run sample office add-ins.",
   "main": "./scripts/index.js",
   "scripts": {

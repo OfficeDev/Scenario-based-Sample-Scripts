@@ -132,11 +132,14 @@ async function exec_script_Excel_Mail(){
                                             shell.exec('sudo chown -R 501:20 ~/.npm', {async:true}, (code, stdout, stderr) => {
                                                 if (code !== 0) {
                                                     console.log(`Err: sudo chown process exited with code ${code}`);
+                                                    console.error(`stderr: ${stderr}`);
                                                 }
-                                                console.log('Issue fixed. Please try to run the sample command again.');
-                                                console.log('--------------------------------------------------------------------------------------------------------');
-                                                console.log('Hint: If the issue persists, please try to run the following commands manually:');
-                                                console.log('sudo chown -R 501:20 ~/.npm');
+                                                else{
+                                                    console.log('Issue fixed. Please try to run the sample command again.');
+                                                    console.log('--------------------------------------------------------------------------------------------------------');
+                                                    console.log('Hint: If the issue persists, please try to run the following commands manually:');
+                                                    console.log('sudo chown -R 501:20 ~/.npm');
+                                                }
 
                                                 const rl = readline.createInterface({
                                                     input: process.stdin,
@@ -347,13 +350,17 @@ async function exec_script_Word_AIGC(){
                                             console.log('Mac access issue detected. Trying to automatically fix the issue...');
 
                                             shell.exec('sudo chown -R 501:20 ~/.npm', {async:true}, (code, stdout, stderr) => {
+                                                
                                                 if (code !== 0) {
                                                     console.log(`Err: sudo chown process exited with code ${code}`);
+                                                    console.error(`stderr: ${stderr}`);
                                                 }
-                                                console.log('Issue fixed. Please try to run the sample command again.');
-                                                console.log('--------------------------------------------------------------------------------------------------------');
-                                                console.log('Hint: If the issue persists, please try to run the following commands manually:');
-                                                console.log('sudo chown -R 501:20 ~/.npm');
+                                                else{
+                                                    console.log('Issue fixed. Please try to run the sample command again.');
+                                                    console.log('--------------------------------------------------------------------------------------------------------');
+                                                    console.log('Hint: If the issue persists, please try to run the following commands manually:');
+                                                    console.log('sudo chown -R 501:20 ~/.npm');
+                                                }
 
                                                 const rl = readline.createInterface({
                                                     input: process.stdin,
