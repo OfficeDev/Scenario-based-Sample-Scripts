@@ -118,6 +118,8 @@ function exec_script_Excel_Mail() {
                                                 if (code !== 0) {
                                                     console.log(`Err: sudo chown process exited with code ${code}`);
                                                     console.error(`stderr: ${stderr}`);
+                                                    console.log('Automatically fix the issue failed. Please try to run the following commands manually:');
+                                                    console.log('sudo chown -R 501:20 ~/.npm');
                                                 }
                                                 else {
                                                     console.log('Issue fixed. Please try to run the sample command again.');
@@ -305,6 +307,8 @@ function exec_script_Word_AIGC() {
                                                 if (code !== 0) {
                                                     console.log(`Err: sudo chown process exited with code ${code}`);
                                                     console.error(`stderr: ${stderr}`);
+                                                    console.log('Automatically fix the issue failed. Please try to run the following commands manually:');
+                                                    console.log('sudo chown -R 501:20 ~/.npm');
                                                 }
                                                 else {
                                                     console.log('Issue fixed. Please try to run the sample command again.');
