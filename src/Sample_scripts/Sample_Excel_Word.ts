@@ -158,7 +158,7 @@ async function exec_script_Excel_Mail(){
                                                     output: process.stdout
                                                 });
                                             
-                                                rl.question('Press any key to exit...', (answer) => {
+                                                rl.question('Press Enter to exit...', (answer) => {
                                                     rl.close();
                                                     resolve(is_vscode_installed);
                                                 });
@@ -197,7 +197,7 @@ async function exec_script_Excel_Mail(){
                                             output: process.stdout
                                         });
                                     
-                                        rl.question('Press any key to exit...', (answer) => {
+                                        rl.question('Press Enter to exit...', (answer) => {
                                             rl.close();
                                             resolve(is_vscode_installed);
                                         });
@@ -223,7 +223,7 @@ async function exec_script_Excel_Mail(){
                                 input: process.stdin,
                                 output: process.stdout
                             });
-                            rl.question('Press any key to exit...', (answer) => {
+                            rl.question('Press Enter to exit...', (answer) => {
                                 rl.close();
                                 resolve(is_vscode_installed);
                             });
@@ -245,7 +245,7 @@ async function exec_script_Excel_Mail(){
                         output: process.stdout
                     });
                 
-                    rl.question('Press any key to exit...', (answer) => {
+                    rl.question('Press Enter to exit...', (answer) => {
                         rl.close();
                         reject(err);
                     });
@@ -390,7 +390,7 @@ async function exec_script_Word_AIGC(){
                                                     output: process.stdout
                                                 });
                                             
-                                                rl.question('Press any key to exit...', (answer) => {
+                                                rl.question('Press Enter to exit...', (answer) => {
                                                     rl.close();
                                                     resolve(is_vscode_installed);
                                                 });
@@ -431,7 +431,7 @@ async function exec_script_Word_AIGC(){
                                             output: process.stdout
                                         });
                                     
-                                        rl.question('Press any key to exit...', (answer) => {
+                                        rl.question('Press Enter to exit...', (answer) => {
                                             rl.close();
                                             resolve(is_vscode_installed);
                                         });
@@ -457,7 +457,7 @@ async function exec_script_Word_AIGC(){
                                 input: process.stdin,
                                 output: process.stdout
                             });
-                            rl.question('Press any key to exit...', (answer) => {
+                            rl.question('Press Enter to exit...', (answer) => {
                                 rl.close();
                                 resolve(is_vscode_installed);
                             });
@@ -479,7 +479,7 @@ async function exec_script_Word_AIGC(){
                         output: process.stdout
                     });
                 
-                    rl.question('Press any key to exit...', (answer) => {
+                    rl.question('Press Enter to exit...', (answer) => {
                         rl.close();
                         reject(err);
                     });
