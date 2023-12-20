@@ -1,22 +1,19 @@
 #!/bin/bash
 
-echo "Checking if Xcode Command Line Tools are installed..."
-if ! xcrun --version > /dev/null 2>&1; then
-    echo "Xcode Command Line Tools are not installed or configured correctly."
-    echo "Installing Xcode Command Line Tools..."
-    xcode-select --install
-    echo "Please follow the prompts to install Xcode Command Line Tools."
-else
-    echo "Xcode Command Line Tools are installed."
-fi
+# echo "Checking if Xcode Command Line Tools are installed..."
+# if ! xcrun --version > /dev/null 2>&1; then
+#     echo "Xcode Command Line Tools are not installed or configured correctly."
+#     echo "Installing Xcode Command Line Tools..."
+#     xcode-select --install
+#     echo "Please follow the prompts to install Xcode Command Line Tools."
+# else
+#     echo "Xcode Command Line Tools are installed."
+# fi
 
 # Check if git is installed
-if ! command -v git &> /dev/null
-then
-    # echo "Git is not installed, installing now..."
-    # brew install git
+if ! git --version > /dev/null 2>&1; then
     echo "Git is not installed, please install git first."
-    exit
+    exit 1
 else
     echo "Git is already installed!"
 fi
