@@ -1,12 +1,9 @@
 #!/bin/bash
 
 # Check if git is installed
-if ! command -v git &> /dev/null
-then
-    # echo "Git is not installed, installing now..."
-    # brew install git
+if ! git --version > /dev/null 2>&1; then
     echo "Git is not installed, please install git first."
-    exit
+    exit 1
 else
     echo "Git is already installed!"
 fi
@@ -79,20 +76,27 @@ echo "The current version of Node.js is: $(node -v)"
 #     npm install -g npm@9
 # fi
 
-#Check if Excel is installed
-if ! mdfind -name "Microsoft Excel.app" | grep -q "Microsoft Excel.app"
-then
-    echo "Microsoft Excel is not installed. Please install Microsoft Excel and then rerun the script."
-    exit 1
-fi
-
 # Check if office_addin_sample_scripts are installed
 if ! npm list -g --depth=0 | grep office_addin_sample_scripts &> /dev/null
 then
     echo "office_addin_sample_scripts is not installed, installing now..."
     sudo npm install -g office_addin_sample_scripts
 else
-    echo "office_addin_sample_scripts has already been installed."
+    echo "office_addin_sample_scripts has already been installed. Updating to the latest version..."
+    sudo npm update -g office_addin_sample_scripts
+    echo "office_addin_sample_scripts has been updated to the latest version!"
+fi
+
+#Check if Excel is installed
+echo "Checking if Excel is installed..."
+if [ "$1" != "bypass" ]; then
+    if ! find /Applications -name "Microsoft Excel.app" 2>/dev/null | grep -q "Microsoft Excel.app"
+    then
+        echo "Microsoft Excel is not installed. Please install Microsoft Excel and then rerun the script."
+        echo "If you make sure the application is installed, please run the script with "bypass":"
+        echo "bash <(curl -L -s aka.ms/exceladdin/mail_mac) bypass"
+        exit 1
+    fi
 fi
  
 # Now Office add-in sample scripts have been installed. Create a sample project.
